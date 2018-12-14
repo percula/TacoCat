@@ -138,7 +138,7 @@ const getRandomMessage = (operation, item, score = 0) => {
       break;
 
     case operations.RANDOM:
-      format = '<item> was randomly changed to <score>';
+      format = '<item> was randomly changed to <score>. <operation> <amount>';
       break;
 
     case operations.EQUAL:

@@ -64,7 +64,7 @@ const handlePlusMinus = async( item, operation, channel ) => {
 const handlePlusRandom = async( item, operation, channel ) => {
   const score = await points.randomScore( item, operation ),
         operationName = operations.getOperationName( operation ),
-        message = messages.getRandomMessage( operationName, item, score );
+        message = messages.getRandomMessage( operationName, item, score, amount );
 
   return slack.sendMessage( message, channel );
 };
