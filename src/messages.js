@@ -122,7 +122,7 @@ messages[ operations.RANDOM ] = [
  *
  * @returns {string} A random message from the chosen pool.
  */
-const getRandomMessage = (operation, item, score = 0) => {
+const getRandomMessage = (operation, item, score = 0, amount = 1) => {
 
   const messageSets = messages[operation];
   let format = '';
@@ -138,7 +138,7 @@ const getRandomMessage = (operation, item, score = 0) => {
       break;
 
     case operations.RANDOM:
-      format = '<item> was randomly changed to <score>. <operation> <amount>';
+      format = '<item> was randomly changed to <score>.';
       break;
 
     case operations.EQUAL:

@@ -138,9 +138,6 @@ const randomScore = async( item, operation ) => {
 
   console.log( item + ' now on ' + score );
   return score;
-  return operation;
-  return amount;
-
 }; // UpdateScore.
 
 /**
