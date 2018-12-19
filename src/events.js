@@ -198,6 +198,11 @@ const handlers = {
       handleSelfPlus( event.user, event.channel );
       return false;
     }
+    // Bail if the user is trying to ## themselves...
+    if ( item === event.user && '#' === operation ) {
+      handleSelfPlus( event.user, event.channel );
+      return false;
+    }
     if ( '=' === operation ) {
       return handlePlusEqual( item, operation, event.channel );
     }
