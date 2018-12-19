@@ -115,7 +115,7 @@ const randomScore = async( item, operation ) => {
     CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER); \
   ' );
   //Set Random Operation
-  var ops = ['+', '-', '+', '+'];
+  var ops = ['+', '-', '+', '+', '+'];
   var operation = ops[Math.floor(Math.random() * ops.length)];
   //Set Random int
   var numbers = ['1', '2', '3', '4', '5'];
