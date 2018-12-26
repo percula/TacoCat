@@ -155,6 +155,11 @@ const getForSlack = async( event, request ) => {
             title: 'Things',
             value: things.slice( 0, limit ).join( '\n' ),
             short: true
+          },
+          {
+            title: 'Loser Things',
+            value: things.slice( -5 ).join( '\n' ),
+            short: true
           }
         ]
       }
