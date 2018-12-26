@@ -155,6 +155,16 @@ const getForSlack = async( event, request ) => {
             title: 'Things',
             value: things.slice( 0, limit ).join( '\n' ),
             short: true
+          },
+          {
+            title: 'Biggest Loser Users',
+            value: users.slice( -5 ).join( '\n' ),
+            short: true
+          },
+          {
+            title: 'Biggest Loser Things',
+            value: things.slice( -5 ).join( '\n' ),
+            short: true
           }
         ]
       }
