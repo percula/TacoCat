@@ -11,7 +11,7 @@ As PlusPlus++ says:
 
 It's as simple as writing in Slack:
 
-```@Tim++ for being awesome!```
+```@Tim++ for being awesome!``` 
 
 Or:
 
