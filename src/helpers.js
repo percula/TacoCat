@@ -66,6 +66,7 @@ const extractPlusMinusEventData = (text) => {
   const data = text.match(/@([!-=?-~]+)>?\s*(\+{2}|-{2}|—{1}|={2})/);
 
 
+
   if (!data) {
     return false;
   }
