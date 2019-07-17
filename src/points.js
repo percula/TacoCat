@@ -16,8 +16,9 @@ const pg = require( 'pg' );
 /* eslint-disable no-process-env */
 const DATABASE_URL = process.env.DATABASE_URL,
       DATABASE_USE_SSL = 'false' === process.env.DATABASE_USE_SSL ? false : true;
+      const MAX_OPS = process.env.MAX_OPS
 /* eslint-enable no-process-env */
-const MAX_OPS = process.env.MAX_OPS
+
 const scoresTableName = 'scores',
       postgresPoolConfig = {
         connectionString: DATABASE_URL,
@@ -25,10 +26,7 @@ const scoresTableName = 'scores',
       };
 
 const userTrackerTableName = 'userTracker',
-      postgresPoolConfig = {
-        connectionString: DATABASE_URL,
-        ssl: DATABASE_USE_SSL
-      };
+
 const postgres = new pg.Pool( postgresPoolConfig );
 
 /**
