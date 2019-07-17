@@ -220,6 +220,7 @@ const getScore = async( item, operation ) => {
 const checkCanUpdate = async(user) => {
 
   const dbClient = await postgres.connect();
+  console.log( 'checking if ' + user + ' can update' );
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
     CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (user CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
