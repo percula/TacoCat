@@ -243,7 +243,7 @@ console.log( 'Line 236' );
     else {
       await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
-      ON CONFLICT (theuser) DO UPDATE SET operations = ' + userTrackerTableName + '.operations + 1; \
+      ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations +1) +'; \
     ' );
     await dbClient.release();
       return true
