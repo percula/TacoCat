@@ -237,14 +237,14 @@ const checkCanUpdate = async(user) => {
   if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
     if(userOperations >= MAX_OPS ) {
       console.log( "test");
-      return false
+      return 'false'
     }
     else {
       await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
       ON CONFLICT (user) DO UPDATE SET operations = ' + userTrackerTableName + '.operations + 1; \
     ' );
-      return true
+      return 'true'
     }
   }
   else {
@@ -253,7 +253,7 @@ const checkCanUpdate = async(user) => {
       ON CONFLICT (user) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
     console.log( test);
-    return true
+    return 'true'
 
   }
 
