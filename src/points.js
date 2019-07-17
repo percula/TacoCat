@@ -217,7 +217,7 @@ const getScore = async( item, operation ) => {
 
 }; // UpdateScore.
 
-const checkCanUpdate = async(user) => {
+const checkCanUpdate = (user) => {
 
   const dbClient = await postgres.connect();
   console.log( 'checking if ' + user + ' can update' );
@@ -225,15 +225,15 @@ const checkCanUpdate = async(user) => {
     CREATE EXTENSION IF NOT EXISTS citext; \
     CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (user CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
   ' );
-
+  console.log( 'Line 228' );
   const userOperations = await dbClient.query( '\
   SELECT operations FROM ' + userTrackerTableName + ' WHERE user = \'' + user + '\'; \
 ' );
-
+console.log( 'Line 232' );
   const userTS = await dbClient.query( '\
   SELECT ts FROM ' + userTrackerTableName + ' WHERE user = \'' + user + '\'; \
 ' );
-
+console.log( 'Line 236' );
   if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
     if(userOperations >= MAX_OPS ) {
       console.log( "test");
