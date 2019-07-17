@@ -236,11 +236,12 @@ console.log( 'Line 232' );
 console.log( 'Line 236' );
   if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
     if(userOperations >= MAX_OPS ) {
-      console.log( "test");
+      console.log( (userOperations +1));
       await dbClient.release();
       return false
     }
     else {
+      console.log( 'adding opps' + (userOperations +1));
       await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations +1) +'; \
