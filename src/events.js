@@ -45,7 +45,7 @@ const handleSelfPlus = ( user, channel ) => {
 const handlePlusMinus = async( item, operation, channel, userInit ) => {
   console.log( userInit + ' triggered a operation on ' + item );
   const check = points.checkCanUpdate(userInit);
-  if (check)
+  if (check == true)
   {
     console.log( userInit + ' has enough juice' );
    const score = await points.updateScore( item, operation ),
@@ -53,8 +53,10 @@ const handlePlusMinus = async( item, operation, channel, userInit ) => {
         message = messages.getRandomMessage( operationName, item, score );
         return slack.sendMessage( message, channel );
   }
-  
-  return slack.sendMessage( 'What you trying to do? Cheat? @' + userInit + '?', channel );
+  else
+  {
+    return slack.sendMessage( 'What you trying to do? Cheat? @' + userInit + '?', channel );
+  }
 };
 
 /**
