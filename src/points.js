@@ -219,14 +219,14 @@ const getScore = async( item, operation ) => {
 
 const checkCanUpdate = (user) => {
 
-  const dbClient =  postgres.connect();
+  const dbClient = await postgres.connect();
   console.log( 'checking if ' + user + ' can update' );
-   dbClient.query( '\
+  await dbClient.query( '\
      CREATE EXTENSION IF NOT EXISTS citext; \
    CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (theuser CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
    ' );
   console.log( 'Line 228' );
-  const dbSelect =  dbClient.query( '\
+  const dbSelect = await dbClient.query( '\
   SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
 const userOperations =  dbSelect.rows[0].operations
@@ -239,32 +239,32 @@ console.log( (Math.floor(new Date() / 1000) - userTS) );
     if(userOperations >= MAX_OPS ) {
       console.log( 'Line 239' );
       console.log( (userOperations +1));
-       dbClient.release();
-      return false
+      await dbClient.release();
+      return false;
     }
     else {
       console.log( 'Line 239' );
       console.log( 'adding opps' + (userOperations +1));
-       dbClient.query( '\
+      await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations +1) +'; \
     ' );
-     dbClient.release();
-      return 'true'
+    await dbClient.release();
+      return true;
     }
   }
   else {
     console.log( 'Line 257');
-    const test =  dbClient.query( '\
+    const test = await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
     console.log( test);
-     dbClient.release();
-    return 'true'
+    await dbClient.release();
+    return true;
 
   }
-   dbClient.release();
+  await dbClient.release();
 
 
 
