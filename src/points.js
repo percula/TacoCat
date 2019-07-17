@@ -250,7 +250,7 @@ console.log( (Math.floor(new Date() / 1000) - userTS) );
       ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations +1) +'; \
     ' );
     await dbClient.release();
-      return true
+      return 'true'
     }
   }
   else {
@@ -261,7 +261,7 @@ console.log( (Math.floor(new Date() / 1000) - userTS) );
     ' );
     console.log( test);
     await dbClient.release();
-    return true
+    return 'true'
 
   }
   await dbClient.release();
