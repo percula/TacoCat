@@ -217,7 +217,7 @@ const getScore = async( item, operation ) => {
 
 }; // UpdateScore.
 
-const checkCanUpdate = (user) => {
+const checkCanUpdate = async (user) => {
 
   const dbClient = await postgres.connect();
   console.log( 'checking if ' + user + ' can update' );
