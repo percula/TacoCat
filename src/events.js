@@ -44,7 +44,7 @@ const handleSelfPlus = ( user, channel ) => {
  */
 const handlePlusMinus = async( item, operation, channel, userInit ) => {
   
-  if (checkCanUpdate(userInit)){
+  if (points.checkCanUpdate(userInit)){
   const score = await points.updateScore( item, operation ),
         operationName = operations.getOperationName( operation ),
         message = messages.getRandomMessage( operationName, item, score );
