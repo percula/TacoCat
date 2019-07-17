@@ -234,13 +234,16 @@ console.log( 'Line 232' );
   SELECT ts FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
 console.log( 'Line 236' );
+console.log( (Math.floor(new Date() / 1000) - userTS) );
   if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
     if(userOperations >= MAX_OPS ) {
+      console.log( 'Line 239' );
       console.log( (userOperations +1));
       await dbClient.release();
       return false
     }
     else {
+      console.log( 'Line 239' );
       console.log( 'adding opps' + (userOperations +1));
       await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
@@ -251,6 +254,7 @@ console.log( 'Line 236' );
     }
   }
   else {
+    console.log( 'Line 257');
     const test = await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
