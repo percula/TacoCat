@@ -16,6 +16,10 @@
       "description": "Verification Token provided by Slack. Find this under Basic Information -> App Credentials within your Slack app management page.",
       "value": "xxxxxxxxxxxxxxxxxxxxxxxx"
     },
+    "MAX_OPS": {
+      "description": "Max number of ops per 24 hour period",
+      "value": "20"
+    },
     "YARN_PRODUCTION": {
       "description": "This configures Heroku to only install production dependencies. See https://devcenter.heroku.com/articles/nodejs-support#package-installation for more details.",
       "value": "true"

@@ -42,12 +42,16 @@ const handleSelfPlus = ( user, channel ) => {
  * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
  *                   points have been updated.
  */
-const handlePlusMinus = async( item, operation, channel ) => {
+const handlePlusMinus = async( item, operation, channel, userInit ) => {
+  
+  if (checkCanUpdate(userInit)){
   const score = await points.updateScore( item, operation ),
         operationName = operations.getOperationName( operation ),
         message = messages.getRandomMessage( operationName, item, score );
-
-  return slack.sendMessage( message, channel );
+        return slack.sendMessage( message, channel );
+  }
+  
+  return slack.sendMessage( 'What you trying to do? Cheat? @<' + userInit + '>?', channel );
 };
 
 /**
@@ -215,7 +219,7 @@ const handlers = {
 
 
     // Otherwise, let's go!
-    return handlePlusMinus( item, operation, event.channel );
+    return handlePlusMinus( item, operation, event.channel, event.user );
 
   }, // Message event.
 

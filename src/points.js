@@ -17,13 +17,18 @@ const pg = require( 'pg' );
 const DATABASE_URL = process.env.DATABASE_URL,
       DATABASE_USE_SSL = 'false' === process.env.DATABASE_USE_SSL ? false : true;
 /* eslint-enable no-process-env */
-
+const MAX_OPS = process.env.MAX_OPS
 const scoresTableName = 'scores',
       postgresPoolConfig = {
         connectionString: DATABASE_URL,
         ssl: DATABASE_USE_SSL
       };
 
+const userTrackerTableName = 'userTracker',
+      postgresPoolConfig = {
+        connectionString: DATABASE_URL,
+        ssl: DATABASE_USE_SSL
+      };
 const postgres = new pg.Pool( postgresPoolConfig );
 
 /**
@@ -214,10 +219,53 @@ const getScore = async( item, operation ) => {
 
 }; // UpdateScore.
 
+const checkCanUpdate = async(user) => {
+
+  const dbClient = await postgres.connect();
+  await dbClient.query( '\
+    CREATE EXTENSION IF NOT EXISTS citext; \
+    CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (user CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
+  ' );
+
+  const userOperations = await dbClient.query( '\
+  SELECT operations FROM ' + userTrackerTableName + ' WHERE user = \'' + user + '\'; \
+' );
+
+  const userTS = await dbClient.query( '\
+  SELECT ts FROM ' + userTrackerTableName + ' WHERE user = \'' + user + '\'; \
+' );
+
+  if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
+    if(userOperations >= MAX_OPS ) {
+      return false
+    }
+    else {
+      await dbClient.query( '\
+      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
+      ON CONFLICT (user) DO UPDATE SET operations = ' + userTrackerTableName + '.operations + 1; \
+    ' );
+      return true
+    }
+  }
+  else {
+    await dbClient.query( '\
+      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
+      ON CONFLICT (user) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
+    ' );
+    return true
+
+  }
+
+
+
+
+}
+
 module.exports = {
   retrieveTopScores,
   updateScore,
   randomScore,
   reallyRandomScore,
-  getScore
+  getScore,
+  checkCanUpdate
 };
