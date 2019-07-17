@@ -52,7 +52,7 @@ const handlePlusMinus = async( item, operation, channel, userInit ) => {
         return slack.sendMessage( message, channel );
   }
   
-  return slack.sendMessage( 'What you trying to do? Cheat? @<' + userInit + '>?', channel );
+  return slack.sendMessage( 'What you trying to do? Cheat? @' + userInit + '?', channel );
 };
 
 /**
