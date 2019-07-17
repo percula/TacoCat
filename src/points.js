@@ -217,16 +217,16 @@ const getScore = async( item, operation ) => {
 
 }; // UpdateScore.
 
-const checkCanUpdate = async (user) => {
+const checkCanUpdate = (user) => {
 
-  const dbClient = await postgres.connect();
+  const dbClient =  postgres.connect();
   console.log( 'checking if ' + user + ' can update' );
-  await dbClient.query( '\
+   dbClient.query( '\
      CREATE EXTENSION IF NOT EXISTS citext; \
    CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (theuser CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
    ' );
   console.log( 'Line 228' );
-  const dbSelect = await dbClient.query( '\
+  const dbSelect =  dbClient.query( '\
   SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
 const userOperations =  dbSelect.rows[0].operations
@@ -239,32 +239,32 @@ console.log( (Math.floor(new Date() / 1000) - userTS) );
     if(userOperations >= MAX_OPS ) {
       console.log( 'Line 239' );
       console.log( (userOperations +1));
-      await dbClient.release();
+       dbClient.release();
       return false
     }
     else {
       console.log( 'Line 239' );
       console.log( 'adding opps' + (userOperations +1));
-      await dbClient.query( '\
+       dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations +1) +'; \
     ' );
-    await dbClient.release();
+     dbClient.release();
       return 'true'
     }
   }
   else {
     console.log( 'Line 257');
-    const test = await dbClient.query( '\
+    const test =  dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
     console.log( test);
-    await dbClient.release();
+     dbClient.release();
     return 'true'
 
   }
-  await dbClient.release();
+   dbClient.release();
 
 
 
