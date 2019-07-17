@@ -23,9 +23,9 @@ const scoresTableName = 'scores',
       postgresPoolConfig = {
         connectionString: DATABASE_URL,
         ssl: DATABASE_USE_SSL
-      };
+      },userTrackerTableName = 'usertracker'; 
 
-const userTrackerTableName = 'userTracker';
+
 
 const postgres = new pg.Pool( postgresPoolConfig );
 
@@ -217,7 +217,7 @@ const getScore = async( item, operation ) => {
 
 }; // UpdateScore.
 
-const checkCanUpdate = async(user) => {
+function checkCanUpdate(user) {
 
   const dbClient = await postgres.connect();
   console.log( 'checking if ' + user + ' can update' );
@@ -236,6 +236,7 @@ const checkCanUpdate = async(user) => {
 
   if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
     if(userOperations >= MAX_OPS ) {
+      console.log( user + ' cannot update');
       return false
     }
     else {
@@ -247,10 +248,11 @@ const checkCanUpdate = async(user) => {
     }
   }
   else {
-    await dbClient.query( '\
+    const test = await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
       ON CONFLICT (user) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
+    console.log( test);
     return true
 
   }
