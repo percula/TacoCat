@@ -43,8 +43,9 @@ const handleSelfPlus = ( user, channel ) => {
  *                   points have been updated.
  */
 const handlePlusMinus = async( item, operation, channel, userInit ) => {
-  
+  console.log( userInit + ' triggered a operation on ' + item );
   if (points.checkCanUpdate(userInit)){
+    console.log( userInit + ' has enough juice' );
   const score = await points.updateScore( item, operation ),
         operationName = operations.getOperationName( operation ),
         message = messages.getRandomMessage( operationName, item, score );
