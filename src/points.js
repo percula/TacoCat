@@ -16,7 +16,7 @@ const pg = require( 'pg' );
 /* eslint-disable no-process-env */
 const DATABASE_URL = process.env.DATABASE_URL,
       DATABASE_USE_SSL = 'false' === process.env.DATABASE_USE_SSL ? false : true;
-      const MAX_OPS = process.env.MAX_OPS
+const MAX_OPS = process.env.MAX_OPS;
 /* eslint-enable no-process-env */
 
 const scoresTableName = 'scores',
@@ -25,7 +25,7 @@ const scoresTableName = 'scores',
         ssl: DATABASE_USE_SSL
       };
 
-const userTrackerTableName = 'userTracker',
+const userTrackerTableName = 'userTracker';
 
 const postgres = new pg.Pool( postgresPoolConfig );
 
@@ -257,7 +257,7 @@ const checkCanUpdate = async(user) => {
 
 
 
-}
+};
 
 module.exports = {
   retrieveTopScores,
