@@ -226,13 +226,12 @@ const checkCanUpdate = async (user) => {
    CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (theuser CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
    ' );
   console.log( 'Line 228' );
-  const userOperations = await dbClient.query( '\
-  SELECT operations FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
+  const dbSelect = await dbClient.query( '\
+  SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
+const userOperations =  dbSelect.rows[0].operations
 console.log( 'Line 232' );
-  const userTS = await dbClient.query( '\
-  SELECT ts FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
-' );
+  const userTS =  dbSelect.rows[0].ts
 console.log( 'Line 236' );
 console.log(typeof userTS);
 console.log( (Math.floor(new Date() / 1000) - userTS) );
