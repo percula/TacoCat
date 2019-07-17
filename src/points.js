@@ -222,16 +222,16 @@ const checkCanUpdate = async (user) => {
   const dbClient = await postgres.connect();
   console.log( 'checking if ' + user + ' can update' );
   await dbClient.query( '\
-    CREATE EXTENSION IF NOT EXISTS citext; \
-    CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (user CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
-  ' );
+     CREATE EXTENSION IF NOT EXISTS citext; \
+   CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (theuser CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
+   ' );
   console.log( 'Line 228' );
   const userOperations = await dbClient.query( '\
-  SELECT operations FROM ' + userTrackerTableName + ' WHERE user = \'' + user + '\'; \
+  SELECT operations FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
 console.log( 'Line 232' );
   const userTS = await dbClient.query( '\
-  SELECT ts FROM ' + userTrackerTableName + ' WHERE user = \'' + user + '\'; \
+  SELECT ts FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
 console.log( 'Line 236' );
   if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
@@ -242,7 +242,7 @@ console.log( 'Line 236' );
     else {
       await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
-      ON CONFLICT (user) DO UPDATE SET operations = ' + userTrackerTableName + '.operations + 1; \
+      ON CONFLICT (theuser) DO UPDATE SET operations = ' + userTrackerTableName + '.operations + 1; \
     ' );
       return 'true'
     }
@@ -250,7 +250,7 @@ console.log( 'Line 236' );
   else {
     const test = await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
-      ON CONFLICT (user) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
+      ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
     console.log( test);
     return 'true'
