@@ -46,7 +46,7 @@ const handlePlusMinus = async( item, operation, channel, userInit ) => {
   console.log( userInit + ' triggered a operation on ' + item );
   const check = await points.checkCanUpdate(userInit);
   console.log( check);
-  if (check == true)
+  if (check)
   {
     console.log( userInit + ' has enough juice' );
    const score = await points.updateScore( item, operation ),
