@@ -45,6 +45,7 @@ const handleSelfPlus = ( user, channel ) => {
 const handlePlusMinus = async( item, operation, channel, userInit ) => {
   console.log( userInit + ' triggered a operation on ' + item );
   const check = points.checkCanUpdate(userInit);
+  console.log( check);
   if (check == true)
   {
     console.log( userInit + ' has enough juice' );

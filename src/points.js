@@ -235,7 +235,7 @@ console.log( 'Line 232' );
 console.log( 'Line 236' );
 console.log(typeof userTS);
 console.log( (Math.floor(new Date() / 1000) - userTS) );
-  if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
+  if ((Math.floor(new Date() / 1000) - userTS) > 86400) {
     if(userOperations >= MAX_OPS ) {
       console.log( 'Line 239' );
       console.log( (userOperations +1));
