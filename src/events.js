@@ -56,6 +56,7 @@ const handlePlusMinus = async( item, operation, channel, userInit ) => {
   }
   else
   {
+    console.log( userInit + 'CANNOT UPDATE ' + item );
     return slack.sendMessage( 'What you trying to do? Cheat? @' + userInit + '?', channel );
   }
 };

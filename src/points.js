@@ -234,6 +234,7 @@ console.log( 'Line 232' );
   const userTS =  dbSelect.rows[0].ts
 console.log( 'Line 236' );
 console.log(typeof userTS);
+console.log(typeof userOperations);
 console.log( (Math.floor(new Date() / 1000) - userTS) );
   if ((Math.floor(new Date() / 1000) - userTS) > 86400) {
     if(userOperations >= MAX_OPS ) {
