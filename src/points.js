@@ -235,13 +235,16 @@ if (dbSelect.rows.length < 1) {
   INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
   ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
 ' );
-  const dbSelect = await dbClient.query( '\
+}
+  const dbSelect2 = await dbClient.query( '\
 SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
-}
-const userOperations =  dbSelect.rows[0].operations
 
-  const userTS =  dbSelect.rows[0].ts
+
+const userOperations =  dbSelect2.rows[0].operations
+
+  const userTS =  dbSelect2.rows[0].ts
+}
   
   if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
     if(userOperations >= MAX_OPS ) {
