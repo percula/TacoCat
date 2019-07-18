@@ -220,20 +220,20 @@ const getScore = async( item, operation ) => {
 const checkCanUpdate = async (user) => {
 
   const dbClient = await postgres.connect();
-  console.log( 'checking if ' + user + ' can update' );
+  
   await dbClient.query( '\
      CREATE EXTENSION IF NOT EXISTS citext; \
    CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (theuser CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
    ' );
-  console.log( 'Line 228' );
+
   var dbSelect = await dbClient.query( '\
   SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
-console.log( 'LENGTH ' +   dbSelect.rows.length );
+
 if (dbSelect.rows.length < 1) {
   await dbClient.query( '\
-  INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
-  ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
+  INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 0, ' + (Math.floor(new Date() / 1000) ) + '  ) \
+  ON CONFLICT (theuser) DO UPDATE SET operations = 0, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
 ' );
 var dbSelect = await dbClient.query( '\
 SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
@@ -247,14 +247,10 @@ const userOperations =  dbSelect.rows[0].operations
   
   if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
     if(userOperations >= MAX_OPS ) {
-      console.log( 'Line 239' );
-      console.log( (userOperations +1));
       await dbClient.release();
       return false;
     }
     else {
-      console.log( 'Line 239' );
-      console.log( 'adding opps' + (userOperations +1));
       await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations +1) +'; \
@@ -264,12 +260,10 @@ const userOperations =  dbSelect.rows[0].operations
     }
   }
   else {
-    console.log( 'Line 257');
     const test = await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
-    console.log( test);
     await dbClient.release();
     return true;
 
