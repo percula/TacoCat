@@ -226,7 +226,7 @@ const checkCanUpdate = async (user) => {
    CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (theuser CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
    ' );
   console.log( 'Line 228' );
-  const dbSelect = await dbClient.query( '\
+  var dbSelect = await dbClient.query( '\
   SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
 console.log( 'LENGTH ' +   dbSelect.rows.length );
@@ -234,6 +234,9 @@ if (dbSelect.rows.length < 1) {
   await dbClient.query( '\
   INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
   ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
+' );
+var dbSelect = await dbClient.query( '\
+SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
 }
   
