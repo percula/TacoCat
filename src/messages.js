@@ -23,19 +23,15 @@ messages[ operations.PLUS ] = [
       'SOMEONE GET THIS PATRIOT A COAT',
       'Bravo.',
       'Oh well done.',
-      'Nice work!',
-      'Well done.',
-      'Exquisite.',
-      'Lovely.',
-      'Superb.',
-      'Classic!',
       'Charming.',
       'Noted.',
       'Well, well!',
       'Well played.',
       'Sincerest congratulations.',
       'Delicious.',
-      'SOMEONE GET THIS PATRIOT A COAT'
+      'SOMEONE GET THIS PATRIOT A COAT',
+      'TOGETHER WE WILL MAKE AMERICA GREAT AGAIN',
+      ':pepe:'
     ]
   },
   {
@@ -57,7 +53,8 @@ messages[ operations.MINUS ] = [
       'Oh là là.',
       'Oh.',
       'Condolences.',
-      'THE WALL JUST GOT 10 FEET HIGHER'
+      'THE WALL JUST GOT 10 FEET HIGHER',
+      ':trumprage:'
     ]
   },
   {
