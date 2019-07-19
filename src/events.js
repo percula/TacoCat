@@ -57,7 +57,7 @@ const handlePlusMinus = async( item, operation, channel, userInit ) => {
   else
   {
     console.log( userInit + 'CANNOT UPDATE ' + item );
-    return slack.sendMessage( 'No Soup for <@' + userInit + '>!\nSorry but you exceded your points limit for today, check back in 24 hours', channel );
+    return slack.sendMessage( 'No Soup for <@' + userInit + '>!\nSorry but you exceded your duck limit for today, check back in 24 hours', channel );
   }
 };
 
@@ -80,6 +80,18 @@ const handlePlusRandom = async( item, operation, channel ) => {
   return slack.sendMessage( message, channel );
 };
 
+/**
+ * Handles a quack against a user, and then notifies the channel of the new score.
+ *
+ * @param {object} channel   The ID of the channel (Cxxxxxxxx for public channels or Gxxxxxxxx for
+ *                           private channels - aka groups) that the message was sent from.
+ * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
+ *                   points have been updated.
+ */
+const handleQuack = async(channel ) => {
+
+  return slack.sendMessage( "Quack, Quack!", channel );
+};
 /**
  * Handles a really random against a user, and then notifies the channel of the new score.
  *
@@ -198,8 +210,14 @@ const handlers = {
       message: ( event ) => {
 
     // Extract the relevant data from the message text.
+
     const { item, operation } = helpers.extractPlusMinusEventData( event.text );
 
+
+    if (event.text.match(".*quack*.")) {
+
+      handleQuack(event.channel);
+    }
     if ( ! item || ! operation ) {
       return false;
     }
