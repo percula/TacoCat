@@ -269,6 +269,7 @@ const handlers = {
   appMention: ( event, request ) => {
 
     const appCommandHandlers = {
+      leaderboardall: leaderboard.allHandler,
       leaderboard: leaderboard.handler,
       help: sendHelp,
       thx: sayThankyou,
