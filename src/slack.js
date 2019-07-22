@@ -126,24 +126,17 @@ const sendMessage = ( text, channel ) => {
  */
 const sendEphemeral = ( text, channel, user ) => {
 
-  if ( 'object' === typeof text ) {
-    let payload = {}
-    payload = Object.assign( payload, text);
-    payload = Object.assign( payload, channel);
-    payload = Object.assign( payload, user);
-  }
-  else {
   let payload = {
     channel,
     text,
     user
   };
-}
 
   // If 'text' was provided as an object instead, merge it into the payload.
   if ( 'object' === typeof text ) {
     delete payload.text;
-    payload = Object.assign( payload, text);
+   
+    payload = Object.assign( payload, text );
   }
 
   return new Promise( ( resolve, reject ) => {
@@ -159,7 +152,7 @@ const sendEphemeral = ( text, channel, user ) => {
     });
 
   }); // Return new Promise.
-}; // sendEphemeral.
+}; // SendMessage.
 
 module.exports = {
   setSlackClient,
