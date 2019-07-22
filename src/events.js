@@ -170,6 +170,9 @@ const sendHelp = ( event ) => {
 
   const botUserID = helpers.extractUserID( event.text );
 
+  const crypto = require('crypto')
+  , shasum = crypto.createHash('sha1');
+  shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFullYear() + today.getMonth() + today.getDate());
   const message = (
     'Sure, here\'s what I can do:\n\n' +
     '• `@Someone++`: Add points to a user or a thing\n' +
@@ -180,11 +183,12 @@ const sendHelp = ( event ) => {
     '• `<@' + botUserID + '> help`: Display this message\n\n' +
     'You\'ll need to invite me to a channel before I can recognise ' +
     '`++` and `--` commands in it.\n\n' +
-    'If you\'re a developer, you can teach me new things! :awwww_yeah:  '
+    'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  ' +
+    shasum.digest('hex')
      
   );
 
-  return slack.sendMessage( message, event.channel );
+  return slack.sendEphemeral( message, event.channel,event.user );
 
 }; // SendHelp.
 

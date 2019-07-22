@@ -176,6 +176,66 @@ const getForSlack = async( event, request ) => {
 
 }; // GetForSlack.
 
+
+/**
+ * Retrieves and sends the current partial leaderboard (top scores only) to the requesting Slack
+ * channel.
+ *
+ * @param {object} event   A hash of a validated Slack 'app_mention' event. See the docs at
+ *                         https://api.slack.com/events-api#events_dispatched_as_json and
+ *                         https://api.slack.com/events/app_mention for details.
+ * @param {object} request The Express request object that resulted in this handler being run.
+ * @returns {Promise} A Promise to send the Slack message.
+ */
+const getForAllSlack = async( event, request ) => {
+
+  const limit = 5;
+
+  const scores = await points.retrieveTopScores(),
+        users = await rankItems( scores, 'users' ),
+        things = await rankItems( scores, 'things' );
+
+  const messageText = (
+    'Here you go. ' +
+    'Or see the <' + getLeaderboardUrl( request ) + '|whole list>.'
+  );
+
+  const message = {
+    attachments: [
+      {
+        text: messageText,
+        color: 'good', // Slack's 'green' colour.
+        fields: [
+          {
+            title: 'Users',
+            value: users.slice( 0, limit ).join( '\n' ),
+            short: true
+          },
+          // {
+          //   title: 'Things',
+          //   value: things.slice( 0, limit ).join( '\n' ),
+          //   short: true
+          // },
+          {
+            title: 'Biggest Loser Users',
+            value: users.slice( -5 ).join( '\n' ),
+            short: true
+           }//,
+          // {
+          //   title: 'Biggest Loser Things',
+          //   value: things.slice( -5 ).join( '\n' ),
+          //   short: true
+          // }
+        ]
+      }
+    ]
+  };
+
+  console.log( 'Sending the leaderboard.' );
+  return slack.sendMessage( message, event.channel );
+
+}; // GetForAllSlack.
+
 /**
  * Retrieves and returns HTML for the full leaderboard, for displaying on the web.
  *
@@ -208,11 +268,30 @@ const getForWeb = async( request ) => {
 const handler = async( event, request ) => {
   return getForSlack( event, request );
 };
+/**
+ * The default handler for this command when invoked over Slack.
+ *
+ * @param {*} event   See the documentation for getForSlack.
+ * @param {*} request See the documentation for getForSlack.
+ * @returns {*} See the documentation for getForSlack.
+ */
+const allHandler = async( event, request ) => {
+var today = new Date();
+const crypto = require('crypto')
+, shasum = crypto.createHash('sha1');
+shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFullYear() + today.getMonth() + today.getDate());
+  if (event.text.match('\b([a-f0-9]{40})\b') = shasum.digest('hex')) {
+    return getForAllSlack( event, request );
+
+  }
+  
+};
 
 module.exports = {
   getLeaderboardUrl,
   rankItems,
   getForSlack,
   getForWeb,
-  handler
+  handler,
+  allHandler
 };
