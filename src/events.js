@@ -169,7 +169,7 @@ const sayThankyou = ( event ) => {
 const sendHelp = ( event ) => {
 
   const botUserID = helpers.extractUserID( event.text );
-
+  var today = new Date();
   const crypto = require('crypto')
   , shasum = crypto.createHash('sha1');
   shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFullYear() + today.getMonth() + today.getDate());
