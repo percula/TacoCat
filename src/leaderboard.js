@@ -280,7 +280,8 @@ var today = new Date();
 const crypto = require('crypto')
 , shasum = crypto.createHash('sha1');
 shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFullYear() + today.getMonth() + today.getDate());
-  if (event.text.match('\b([a-f0-9]{40})\b') = shasum.digest('hex')) {
+
+  if (event.text.match('([a-f0-9]{40})')[0] = shasum.digest('hex')) {
     return getForAllSlack( event, request );
 
   }
