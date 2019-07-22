@@ -255,6 +255,14 @@ const handlers = {
 
       handleQuack(event.channel);
     }
+    if (event.text.match("!xy")) {
+
+      slack.sendMessage(event.channel,"Solutions start with the problem, not your solution. Check out http://xyproblem.info");
+    }
+    if (event.text.match("!ask")) {
+
+      slack.sendMessage(event.channel,"Don't ask to ask, instead of \"Does anyone use System Center App Controller 2012 R2\" ask \"When ever I try to use xyz feature of System Center App Controller it gives me an error that says abc\"");
+    }
     if ( ! item || ! operation ) {
       return false;
     }
@@ -326,7 +334,7 @@ const handlers = {
       'few things I\'ve been trained to do. Send me `help` for more details.'
     );
 
-    return slack.sendMessage( defaultMessage, event.channel );
+    return slack.sendEphemeral( defaultMessage, event.channel,event.user );
 
   } // AppMention event.
 }; // Handlers.
