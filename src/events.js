@@ -267,6 +267,15 @@ const handlers = {
 
       slack.sendMessage("Thick imaging sucks, try just using the install.wim.", event.channel);
     }
+
+    if (event.text.match("!tom")) {
+        if (event.channel == "GC7LSKHLH") {
+
+          slack.sendMessage("<@DAPDLTG6T> is stupid", event.channel);
+        }
+
+
+    }
     if ( ! item || ! operation ) {
       return false;
     }
