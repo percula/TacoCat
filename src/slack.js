@@ -112,6 +112,48 @@ const sendMessage = ( text, channel ) => {
   }); // Return new Promise.
 }; // SendMessage.
 
+/**
+ * Sends a Ephemeral message to a Slack channel.
+ *
+ * @param {string|Object} text    Either message text to send, or a Slack message payload. See the
+ *                                docs at https://api.slack.com/methods/chat.postEphemeral and
+ *                                https://api.slack.com/docs/message-formatting.
+ * @param {string}        channel The ID of the channel to send the message to. Can alternatively
+ *                                be provided as part of the payload in the previous argument.
+ * @param {string}        user    the ID of the user to send the message to
+ * 
+ * @return {Promise} A Promise to send the message to Slack.
+ */
+const sendEphemeral = ( text, channel, user ) => {
+
+  let payload = {
+    channel,
+    text,
+    user
+  };
+
+  // If 'text' was provided as an object instead, merge it into the payload.
+  if ( 'object' === typeof text ) {
+    delete payload.text;
+    delete payload.channel
+    payload = Object.assign( channel, text, payload );
+  }
+
+  return new Promise( ( resolve, reject ) => {
+    slack.chat.postEphemeral( payload ).then( ( data ) => {
+
+      if ( ! data.ok ) {
+        console.error( 'Error occurred posting response.' );
+        return reject();
+      }
+
+      resolve();
+
+    });
+
+  }); // Return new Promise.
+}; // sendEphemeral.
+
 module.exports = {
   setSlackClient,
   getUserList,
