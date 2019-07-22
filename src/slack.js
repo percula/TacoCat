@@ -158,5 +158,6 @@ module.exports = {
   setSlackClient,
   getUserList,
   getUserName,
-  sendMessage
+  sendMessage,
+  sendEphemeral
 };
