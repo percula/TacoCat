@@ -179,12 +179,13 @@ const sendHelp = ( event ) => {
     '• `@Someone--`: Subtract points from a user or a thing\n' +
     '• `@Someone==`: Gets current points from a user or a thing\n' +
     // '• `@Someone##`: Randomly adds or removes 1-5 points from a user or a thing\n' +
-    '• `<@' + botUserID + '> leaderboard`: Display the leaderboard\n' +
+    '• `<@' + botUserID + '> leaderboard`: Display the leaderboard for just you\n' +
+    '• `<@' + botUserID + '> leaderboard ' + shasum.digest('hex') + '`: Display the leaderboard for everyone (you need your secret key)\n' +
     '• `<@' + botUserID + '> help`: Display this message\n\n' +
     'You\'ll need to invite me to a channel before I can recognise ' +
     '`++` and `--` commands in it.\n\n' +
-    'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  ' +
-    shasum.digest('hex')
+    'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  ' 
+    
      
   );
 
@@ -192,6 +193,36 @@ const sendHelp = ( event ) => {
 
 }; // SendHelp.
 
+/**
+ * Sends a help message, explaining the bot's commands, to the requesting channel.
+ *
+ * @param {object} event   A hash of a validated Slack 'app_mention' event. See the docs at
+ *                         https://api.slack.com/events-api#events_dispatched_as_json and
+ *                         https://api.slack.com/events/app_mention for details.
+ * @returns {Promise} A Promise to send the Slack message.
+ */
+const sendAllHelp = ( event ) => {
+
+  const botUserID = helpers.extractUserID( event.text );
+  const message = (
+    'Sure, here\'s what I can do:\n\n' +
+    '• `@Someone++`: Add points to a user or a thing\n' +
+    '• `@Someone--`: Subtract points from a user or a thing\n' +
+    '• `@Someone==`: Gets current points from a user or a thing\n' +
+    // '• `@Someone##`: Randomly adds or removes 1-5 points from a user or a thing\n' +
+    '• `<@' + botUserID + '> leaderboard`: Display the leaderboard for just you\n' +
+    '• `<@' + botUserID + '> leaderboard {your secret key from help}`: Display the leaderboard for everyone (you need your secret key)\n' +
+    '• `<@' + botUserID + '> help`: Display this message\n\n' +
+    'You\'ll need to invite me to a channel before I can recognise ' +
+    '`++` and `--` commands in it.\n\n' +
+    'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  ' 
+    
+     
+  );
+
+  return slack.sendMessage( message, event.channel );
+
+}; // SendAllHelp.
 const donothing = ( event ) => {
 
 }; // donothing
@@ -272,6 +303,7 @@ const handlers = {
       leaderboardall: leaderboard.allHandler,
       leaderboard: leaderboard.handler,
       help: sendHelp,
+      helpall: sendAllHelp,
       thx: sayThankyou,
       thanks: sayThankyou,
       thankyou: sayThankyou,
@@ -348,6 +380,7 @@ module.exports = {
   handlePlusMinus,
   sayThankyou,
   sendHelp,
+  sendAllHelp,
   handlers,
   handleEvent
 };
