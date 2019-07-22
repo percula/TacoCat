@@ -285,6 +285,10 @@ shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFull
     return getForAllSlack( event, request );
 
   }
+  else {
+    slack.sendEphemeral("Code Invalid, please check help", event.channel, event.user)
+
+  }
   
 };
 
