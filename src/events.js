@@ -181,7 +181,8 @@ const sendHelp = ( event ) => {
     // '• `@Someone##`: Randomly adds or removes 1-5 points from a user or a thing\n' +
     '• `<@' + botUserID + '> leaderboard`: Display the leaderboard for just you\n' +
     '• `<@' + botUserID + '> leaderboard ' + shasum.digest('hex') + '`: Display the leaderboard for everyone (you need your secret key)\n' +
-    '• `<@' + botUserID + '> help`: Display this message\n\n' +
+    '• `<@' + botUserID + '> help`: Display this message just for you\n\n' +
+    '• `<@' + botUserID + '> helpall`: Display this message for everyone\n\n' +
     'You\'ll need to invite me to a channel before I can recognise ' +
     '`++` and `--` commands in it.\n\n' +
     'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  ' 
@@ -212,7 +213,8 @@ const sendAllHelp = ( event ) => {
     // '• `@Someone##`: Randomly adds or removes 1-5 points from a user or a thing\n' +
     '• `<@' + botUserID + '> leaderboard`: Display the leaderboard for just you\n' +
     '• `<@' + botUserID + '> leaderboard {your secret key from help}`: Display the leaderboard for everyone (you need your secret key)\n' +
-    '• `<@' + botUserID + '> help`: Display this message\n\n' +
+    '• `<@' + botUserID + '> help`: Display this message just for you\n\n' +
+    '• `<@' + botUserID + '> helpall`: Display this message for everyone\n\n' +
     'You\'ll need to invite me to a channel before I can recognise ' +
     '`++` and `--` commands in it.\n\n' +
     'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  ' 
