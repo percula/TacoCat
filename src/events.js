@@ -257,11 +257,11 @@ const handlers = {
     }
     if (event.text.match("!xy")) {
 
-      slack.sendMessage(event.channel,"Solutions start with the problem, not your solution. Check out http://xyproblem.info");
+      slack.sendMessage("Solutions start with the problem, not your solution. Check out http://xyproblem.info", event.channel);
     }
     if (event.text.match("!ask")) {
 
-      slack.sendMessage(event.channel,"Don't ask to ask, instead of \"Does anyone use System Center App Controller 2012 R2\" ask \"When ever I try to use xyz feature of System Center App Controller it gives me an error that says abc\"");
+      slack.sendMessage("Don't ask to ask, instead of \"Does anyone use System Center App Controller 2012 R2\" ask \"When ever I try to use xyz feature of System Center App Controller it gives me an error that says abc\"", event.channel);
     }
     if ( ! item || ! operation ) {
       return false;
