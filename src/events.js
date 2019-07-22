@@ -302,8 +302,8 @@ const handlers = {
     const appCommandHandlers = {
       leaderboardall: leaderboard.allHandler,
       leaderboard: leaderboard.handler,
-      help: sendHelp,
       helpall: sendAllHelp,
+      help: sendHelp,
       thx: sayThankyou,
       thanks: sayThankyou,
       thankyou: sayThankyou,
