@@ -245,7 +245,7 @@ const userOperations =  dbSelect.rows[0].operations
 
   const userTS =  dbSelect.rows[0].ts
   
-  if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
+  if ((Math.floor(new Date() / 1000) - userTS) < 3600) {
     if(userOperations >= MAX_OPS ) {
       await dbClient.release();
       return false;
