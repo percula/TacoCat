@@ -1,17 +1,13 @@
-# Working PlusPlus++
+# TacoCat++
 [![Build Status](https://travis-ci.com/tdmalone/working-plusplus.svg?branch=master)](https://travis-ci.com/tdmalone/working-plusplus)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/d0d9b6c1d1c4430e9fad61bb60b5dc4e)](https://www.codacy.com/project/tdmalone/working-plusplus/dashboard)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/d0d9b6c1d1c4430e9fad61bb60b5dc4e)](https://www.codacy.com/app/tdmalone/working-plusplus/files)
 
-Like [plusplus.chat](https://plusplus.chat/), except this one actually works - because you can host it yourself! 😉
-
-As PlusPlus++ says:
-
-> Plus, minus, and keep score of all the good and not so good things your friends say and do on Slack.
+Give tacos for all the good things your friends say and do on Slack.
 
 It's as simple as writing in Slack:
 
-```@Tim++ for being awesome!```
+```@Tim 🌮 for being awesome!```
 
 Or:
 
@@ -21,7 +17,7 @@ Or:
 
 ```@CoffeeShop-- for forgetting my order ;(```
 
-**Working PlusPlus++** will keep track of the score everyone (and everything) is sitting on.
+**TacoCat** will keep track of the score everyone (and everything) is sitting on.
 
 Completely open source, so do with it what you like. Or if you don't want to make your own tweaks, deploy it as-is right now with the instructions below. You need somewhere to host it: [Heroku](https://heroku.com) is highly recommended because it's free in most cases, and performs super well.
 
@@ -85,17 +81,17 @@ Further instructions, such as hosting elsewhere, upgrading, etc. are coming soon
 
 ## Usage
 
-**Working PlusPlus++** will listen out for messages, in channels it has been invited to, for valid commands. Commands are accepted anywhere in a message - at the beginning, middle, or end - and are currently limited to one command per message (if multiple commands are sent, only the first one found will be handled).
+**TacoCat** will listen out for messages, in channels it has been invited to, for valid commands. Commands are accepted anywhere in a message - at the beginning, middle, or end - and are currently limited to one command per message (if multiple commands are sent, only the first one found will be handled).
 
 Currently supported general commands are:
 
-* `@Someone++`: Adds points to a user or a thing
+* `@Someone 🌮`: Adds points to a user or a thing
 * `@Someone--`: Subtracts points from a user or a thing
 
 Currently supported extended commands are:
 
-* `@WorkingPlusPlus leaderboard`: Displays the leaderboard for your Slack workspace
-* `@WorkingPlusPlus help`: Displays a help message showing these commands
+* `@TacoCat leaderboard`: Displays the leaderboard for your Slack workspace
+* `@TacoCat help`: Displays a help message showing these commands
 
 If you set a different name for your bot when adding the app to your Slack workspace, use that name instead.
 
@@ -103,7 +99,7 @@ If you set a different name for your bot when adding the app to your Slack works
 
 ## Contributing
 
-Your contributions are welcome! [Create an issue](https://github.com/tdmalone/working-plusplus/issues/new) if there's something you'd like to see or [send a pull request](https://github.com/tdmalone/working-plusplus/compare) if you can implement it yourself.
+Your contributions are welcome! [Create an issue](https://github.com/percula/TacoCat/issues/new) if there's something you'd like to see or [send a pull request](https://github.com/percula/TacoCat/compare) if you can implement it yourself.
 
 For full details on contributing, including getting a local environment set up, see [CONTRIBUTING.md](CONTRIBUTING.md).
 
