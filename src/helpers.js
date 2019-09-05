@@ -65,14 +65,12 @@ const extractPlusMinusEventData = (text) => {
 
   const data = text.match(/@([!-=?-~]+)>?\s*(\+{2}|-{2}|—{1}|={2}|:taco:|🌮)/);
 
-
-
   if (!data) {
     return false;
   }
   return {
     item: data[1].toUpperCase(),
-    operation: data[2].substring(0, 1).replace('—', '-')
+    operation: data[2].replace(':taco:','+').replace('🌮','+').substring(0, 1).replace('—', '-')
   };
 }; // ExtractPlusMinusEventData.
 
