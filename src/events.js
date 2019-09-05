@@ -251,9 +251,9 @@ const handlers = {
     const { item, operation } = helpers.extractPlusMinusEventData( event.text );
 
 
-    if (event.text.match(".*:taco:*.")) {
-      handleTaco(event.channel);
-    }
+    //if (event.text.match(".*:taco:*.")) {
+    //  handleTaco(event.channel);
+    //}
 
     if ( ! item || ! operation ) {
       return false;

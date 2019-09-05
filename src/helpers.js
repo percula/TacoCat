@@ -62,8 +62,8 @@ const extractCommand = (message, commands) => {
  */
 
 const extractPlusMinusEventData = (text) => {
-  
-  const data = text.match(/@([!-=?-~]+)>?\s*(\+{2}|-{2}|—{1}|={2})/);
+
+  const data = text.match(/@([!-=?-~]+)>?\s*((\+{2}|-{2}|—{1}|={2})|(?:^|\W):taco:(?:$|\W))/);
 
 
 
