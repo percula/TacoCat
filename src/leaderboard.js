@@ -92,7 +92,7 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
 
         // If this is the first item, it's the winner!
         if ( ! items.length ) {
-          output += ' ' + ( isUser ? ':princess:' : ':pepe:' );
+          output += ' ' + ( isUser ? ':muscle:' : ':tada:' );
         }
 
         break;
@@ -150,17 +150,17 @@ const getForSlack = async( event, request ) => {
             title: 'Users',
             value: users.slice( 0, limit ).join( '\n' ),
             short: true
-          },
+          }//,
           // {
           //   title: 'Things',
           //   value: things.slice( 0, limit ).join( '\n' ),
           //   short: true
           // },
-          {
-            title: 'Biggest Loser Users',
-            value: users.slice( -5 ).join( '\n' ),
-            short: true
-           }//,
+          //{
+          //  title: 'Biggest Loser Users',
+          //  value: users.slice( -5 ).join( '\n' ),
+          //  short: true
+          // }//,
           // {
           //   title: 'Biggest Loser Things',
           //   value: things.slice( -5 ).join( '\n' ),
@@ -216,11 +216,11 @@ const getForAllSlack = async( event, request ) => {
           //   value: things.slice( 0, limit ).join( '\n' ),
           //   short: true
           // },
-          {
-            title: 'Biggest Loser Users',
-            value: users.slice( -5 ).join( '\n' ),
-            short: true
-           }//,
+          //{
+          //  title: 'Biggest Loser Users',
+          //  value: users.slice( -5 ).join( '\n' ),
+          //  short: true
+          // }//,
           // {
           //   title: 'Biggest Loser Things',
           //   value: things.slice( -5 ).join( '\n' ),
@@ -289,7 +289,7 @@ shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFull
     slack.sendEphemeral("Code Invalid, please check help", event.channel, event.user)
 
   }
-  
+
 };
 
 module.exports = {

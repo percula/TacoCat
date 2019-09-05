@@ -57,7 +57,7 @@ const handlePlusMinus = async( item, operation, channel, userInit ) => {
   else
   {
     console.log( userInit + 'CANNOT UPDATE ' + item );
-    return slack.sendMessage( 'No Soup for <@' + userInit + '>!\nSorry but you exceded your duck limit, check back in 1 hour', channel );
+    return slack.sendMessage( 'No Soup for <@' + userInit + '>!\nSorry but you exceded your :taco: limit, check back in 1 hour', channel );
   }
 };
 
@@ -81,16 +81,16 @@ const handlePlusRandom = async( item, operation, channel ) => {
 };
 
 /**
- * Handles a quack against a user, and then notifies the channel of the new score.
+ * Handles a taco against a user, and then notifies the channel of the new score.
  *
  * @param {object} channel   The ID of the channel (Cxxxxxxxx for public channels or Gxxxxxxxx for
  *                           private channels - aka groups) that the message was sent from.
  * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
  *                   points have been updated.
  */
-const handleQuack = async(channel ) => {
+const handleTaco = async(channel ) => {
 
-  return slack.sendMessage( "Quack, Quack!", channel );
+  return slack.sendMessage( ":taco:!", channel );
 };
 /**
  * Handles a really random against a user, and then notifies the channel of the new score.
@@ -185,9 +185,9 @@ const sendHelp = ( event ) => {
     '• `<@' + botUserID + '> helpall`: Display this message for everyone\n\n' +
     'You\'ll need to invite me to a channel before I can recognise ' +
     '`++` and `--` commands in it.\n\n' +
-    'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  ' 
-    
-     
+    'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  '
+
+
   );
 
   return slack.sendEphemeral( message, event.channel,event.user );
@@ -217,9 +217,9 @@ const sendAllHelp = ( event ) => {
     '• `<@' + botUserID + '> helpall`: Display this message for everyone\n\n' +
     'You\'ll need to invite me to a channel before I can recognise ' +
     '`++` and `--` commands in it.\n\n' +
-    'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  ' 
-    
-     
+    'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  '
+
+
   );
 
   return slack.sendMessage( message, event.channel );
@@ -242,8 +242,8 @@ const handlers = {
    * @return {bool|Promise} Either `false` if the event cannot be handled, or a Promise to send a
    *                        Slack message back to the requesting channel.
    */
-      
-      
+
+
       message: ( event ) => {
 
     // Extract the relevant data from the message text.
@@ -251,31 +251,10 @@ const handlers = {
     const { item, operation } = helpers.extractPlusMinusEventData( event.text );
 
 
-    if (event.text.match(".*quack*.")) {
-
-      handleQuack(event.channel);
-    }
-    if (event.text.match("!xy")) {
-
-      slack.sendMessage("Solutions start with the problem, not your solution. Check out http://xyproblem.info", event.channel);
-    }
-    if (event.text.match("!ask")) {
-
-      slack.sendMessage("Don't ask to ask, instead of \"Does anyone use System Center App Controller 2012 R2\" ask \"When ever I try to use xyz feature of System Center App Controller it gives me an error that says abc. I have tried T, S, and U, to fix it. does anyone have any suggestions?\"", event.channel);
-    }
-    if (event.text.match("!thick")) {
-
-      slack.sendMessage("Thick imaging sucks, try just using the install.wim.", event.channel);
+    if (event.text.match(".*:taco:*.")) {
+      handleTaco(event.channel);
     }
 
-    if (event.text.match("!tom")) {
-        if (event.channel == "GC7LSKHLH") {
-
-          slack.sendMessage("<@DAPDLTG6T> is stupid", event.channel);
-        }
-
-
-    }
     if ( ! item || ! operation ) {
       return false;
     }
@@ -306,7 +285,7 @@ const handlers = {
 
   }, // Message event.
 
- 
+
 
   /**
    * Handles 'app_mention' events sent from Slack, primarily by looking for known app commands, and

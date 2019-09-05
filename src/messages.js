@@ -20,18 +20,20 @@ messages[ operations.PLUS ] = [
     set: [
       'Congrats!',
       'Got it!',
-      'SOMEONE GET THIS PATRIOT A COAT',
       'Bravo.',
+      'Nice work!',
+      'Well done.',
+      'Exquisite.',
+      'Lovely.',
+      'Superb.',
+      'Classic!',
       'Oh well done.',
       'Charming.',
       'Noted.',
       'Well, well!',
       'Well played.',
       'Sincerest congratulations.',
-      'Delicious.',
-      'SOMEONE GET THIS PATRIOT A COAT',
-      'TOGETHER WE WILL MAKE AMERICA GREAT AGAIN',
-      ':pepe:'
+      'Delicious.'
     ]
   },
   {
@@ -46,15 +48,12 @@ messages[ operations.MINUS ] = [
     set: [
       'Oh RLY?',
       'Oh, really?',
-      'THE WALL JUST GOT 10 FEET HIGHER',
       'Oh :slightly_frowning_face:.',
       'I see.',
       'Ouch.',
       'Oh là là.',
       'Oh.',
-      'Condolences.',
-      'THE WALL JUST GOT 10 FEET HIGHER',
-      ':trumprage:'
+      'Condolences.'
     ]
   },
   {
@@ -141,7 +140,7 @@ const getRandomMessage = (operation, item, score = 0) => {
   switch (operation) {
     case operations.MINUS:
     case operations.PLUS:
-      format = '<message> *<item>* has <score> duck<plural>.';
+      format = '<message> *<item>* has <score> :taco:<plural>.';
       break;
 
     case operations.SELF:
@@ -151,13 +150,13 @@ const getRandomMessage = (operation, item, score = 0) => {
     case operations.RANDOM:
       format = '<item> was randomly changed to <score>';
       break;
-    
+
     case operations.REALLYRANDOM:
       format = '<item> was randomly changed to <score>';
       break;
 
     case operations.EQUAL:
-      format = '<message> *<item>* currently at <score> duck<plural>.';
+      format = '<message> *<item>* currently at <score> :taco:<plural>.';
       break;
 
     default:
