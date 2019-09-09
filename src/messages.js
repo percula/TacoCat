@@ -34,7 +34,10 @@ messages[ operations.PLUS ] = [
       'Well played.',
       'Meow.',
       'Mmmmm...tacos.',
-      'Delicious.'
+      'Delicious.',
+      ':nyancat:',
+      ':nyancat2:',
+      ':smile_cat:'
     ]
   },
   {
