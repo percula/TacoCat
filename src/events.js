@@ -311,6 +311,8 @@ const handlers = {
       thankyou: sayThankyou,
       '++': handlePlusMinus,
       // '--': handlePlusMinus,
+      ':taco:': handlePlusMinus,
+      ':cat:': handlePlusMinus,
       '==': handlePlusEqual
     };
 
