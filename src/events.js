@@ -175,8 +175,8 @@ const sendHelp = ( event ) => {
   shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFullYear() + today.getMonth() + today.getDate());
   const message = (
     'Sure, here\'s what I can do:\n\n' +
-    '• `@Someone++`: Add points to a user or a thing\n' +
-    '• `@Someone--`: Subtract points from a user or a thing\n' +
+    '• `@Someone++`, ``@Someone :taco:`, or `@Someone :cat:`: Add points to a user or a thing\n' +
+    //'• `@Someone--`: Subtract points from a user or a thing\n' +
     '• `@Someone==`: Gets current points from a user or a thing\n' +
     // '• `@Someone##`: Randomly adds or removes 1-5 points from a user or a thing\n' +
     '• `<@' + botUserID + '> leaderboard`: Display the leaderboard for just you\n' +
@@ -207,8 +207,8 @@ const sendAllHelp = ( event ) => {
   const botUserID = helpers.extractUserID( event.text );
   const message = (
     'Sure, here\'s what I can do:\n\n' +
-    '• `@Someone++`: Add points to a user or a thing\n' +
-    '• `@Someone--`: Subtract points from a user or a thing\n' +
+    '• `@Someone++`, ``@Someone :taco:`, or `@Someone :cat:`: Add points to a user or a thing\n' +
+    //'• `@Someone--`: Subtract points from a user or a thing\n' +
     '• `@Someone==`: Gets current points from a user or a thing\n' +
     // '• `@Someone##`: Randomly adds or removes 1-5 points from a user or a thing\n' +
     '• `<@' + botUserID + '> leaderboard`: Display the leaderboard for just you\n' +
@@ -310,7 +310,7 @@ const handlers = {
       thanks: sayThankyou,
       thankyou: sayThankyou,
       '++': handlePlusMinus,
-      '--': handlePlusMinus,
+      // '--': handlePlusMinus,
       '==': handlePlusEqual
     };
 

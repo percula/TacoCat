@@ -32,7 +32,8 @@ messages[ operations.PLUS ] = [
       'Noted.',
       'Well, well!',
       'Well played.',
-      'Sincerest congratulations.',
+      'Meow.',
+      'Mmmmm...tacos.'
       'Delicious.'
     ]
   },
@@ -54,6 +55,7 @@ messages[ operations.MINUS ] = [
       'Oh là là.',
       'Oh.',
       'Condolences.'
+      ':smirk_cat:'
     ]
   },
   {
