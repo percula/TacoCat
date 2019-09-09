@@ -54,7 +54,7 @@ messages[ operations.MINUS ] = [
       'Ouch.',
       'Oh là là.',
       'Oh.',
-      'Condolences.'
+      'Condolences.',
       ':smirk_cat:'
     ]
   },
