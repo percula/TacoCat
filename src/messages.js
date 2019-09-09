@@ -33,7 +33,7 @@ messages[ operations.PLUS ] = [
       'Well, well!',
       'Well played.',
       'Meow.',
-      'Mmmmm...tacos.'
+      'Mmmmm...tacos.',
       'Delicious.'
     ]
   },
