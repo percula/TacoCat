@@ -61,17 +61,21 @@ const extractCommand = (message, commands) => {
  *                   (i.e. + or -).
  */
 
-const extractPlusMinusEventData = (text) => {
+ const extractPlusMinusEventData = (text) => {
+   let regexp = /(@([!-=?-~]+)>?\s*(\+{2}|={2}|:taco:|:cat:))/g;
 
-  const data = text.match(/@([!-=?-~]+)>?\s*(\+{2}|={2}|:taco:|:cat:)/);
+   const array = text.match(regexp);
+   var organizedArray = [];
 
-  if (!data) {
-    return false;
-  }
-  return {
-    item: data[1].toUpperCase(),
-    operation: data[2].replace(':taco:','+').replace(':cat:','+').substring(0, 1).replace('—', '-')
-  };
+   for (var i = 0; i < array.length; i++) {
+     const data = array[i].match(/@([!-=?-~]+)>?\s*(\+{2}|={2}|:taco:|:cat:)/);
+     organizedArray.push({
+       item: data[1].toUpperCase(),
+       operation: data[2].replace(':taco:','+').replace(':cat:','+').substring(0, 1).replace('—', '-')
+     })
+   };
+
+   return organizedArray;
 }; // ExtractPlusMinusEventData.
 
 /**

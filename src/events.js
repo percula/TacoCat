@@ -248,41 +248,49 @@ const handlers = {
 
     // Extract the relevant data from the message text.
 
-    const { item, operation } = helpers.extractPlusMinusEventData( event.text );
+    let data = helpers.extractPlusMinusEventData( event.text );
 
+    var result = true;
 
-    //if (event.text.match(".*:taco:*.")) {
-    //  handleTaco(event.channel);
-    //}
+    for (var i = 0; i < data.length; i++) {
+      const dataItem = data[i]
 
-    if ( ! item || ! operation ) {
-      return false;
+      const item = dataItem[0]
+      const operation = dataItem[1]
+
+      //if (event.text.match(".*:taco:*.")) {
+      //  handleTaco(event.channel);
+      //}
+
+      if ( ! item || ! operation ) {
+        return false;
+      }
+
+      // Bail if the user is trying to ++ themselves...
+      if ( item === event.user && '+' === operation ) {
+        handleSelfPlus( event.user, event.channel );
+        return false;
+      }
+      // Bail if the user is trying to ## themselves...
+      if ( item === event.user && '#' === operation ) {
+        handleSelfPlus( event.user, event.channel );
+        return false;
+      }
+      if ( '=' === operation ) {
+        handlePlusEqual( item, operation, event.channel );
+      }
+      if ( '#' === operation ) {
+        handlePlusRandom( item, operation, event.channel );
+      }
+      if ( '!' === operation ) {
+        handlePlusReallyRandom( item, operation, event.channel );
+      }
+
+      // Otherwise, let's go!
+      handlePlusMinus( item, operation, event.channel, event.user );
     }
 
-    // Bail if the user is trying to ++ themselves...
-    if ( item === event.user && '+' === operation ) {
-      handleSelfPlus( event.user, event.channel );
-      return false;
-    }
-    // Bail if the user is trying to ## themselves...
-    if ( item === event.user && '#' === operation ) {
-      handleSelfPlus( event.user, event.channel );
-      return false;
-    }
-    if ( '=' === operation ) {
-      return handlePlusEqual( item, operation, event.channel );
-    }
-    if ( '#' === operation ) {
-      return handlePlusRandom( item, operation, event.channel );
-    }
-    if ( '!' === operation ) {
-      return handlePlusReallyRandom( item, operation, event.channel );
-    }
-
-
-    // Otherwise, let's go!
-    return handlePlusMinus( item, operation, event.channel, event.user );
-
+    return result;
   }, // Message event.
 
 
