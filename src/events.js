@@ -253,10 +253,10 @@ const handlers = {
     var result = true;
 
     for (var i = 0; i < data.length; i++) {
-      const dataItem = data[i]
+      const dataItem = data[i];
 
-      const item = dataItem[0]
-      const operation = dataItem[1]
+      const item = dataItem[0];
+      const operation = dataItem[1];
 
       //if (event.text.match(".*:taco:*.")) {
       //  handleTaco(event.channel);
