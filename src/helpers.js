@@ -75,12 +75,14 @@ const extractCommand = (message, commands) => {
 
    var organizedArray = [peopleArray, numTacos];
 
-   for (var i = 0; i < peopleArray.length; i++) {
-     organizedArray.push({
-       item: peopleArray[i].toUpperCase(),
-       quantity: numTacos
-     })
-   };
+   if (peopleArray != null) {
+     for (var i = 0; i < peopleArray.length; i++) {
+       organizedArray.push({
+         item: peopleArray[i].toUpperCase(),
+         quantity: numTacos
+       })
+     };
+   }
 
    return organizedArray;
 }; // ExtractPlusMinusEventData.
