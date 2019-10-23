@@ -78,7 +78,7 @@ const extractCommand = (message, commands) => {
    if (peopleArray != null) {
      for (var i = 0; i < peopleArray.length; i++) {
        organizedArray.push({
-         item: peopleArray[i].substring(1).toUpperCase(),
+         item: peopleArray[i].substring(1).replace("++","").replace(":taco:","").toUpperCase(),
          quantity: numTacos
        })
      };
