@@ -63,7 +63,7 @@ const extractCommand = (message, commands) => {
 
  const extractPlusMinusEventData = (text) => {
    let tacoCatRegEx = /(\+{2}|:taco:)/g;
-   let peopleRegEx = /(@([!-=?-~]+)>?\s*)/g;
+   let peopleRegEx = /(@([!-=?-~]+)>?)/g;
 
    const tacoCatArray = text.match(tacoCatRegEx);
    var numTacos = 0;
