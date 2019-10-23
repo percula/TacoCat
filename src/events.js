@@ -175,16 +175,16 @@ const sendHelp = ( event ) => {
   shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFullYear() + today.getMonth() + today.getDate());
   const message = (
     'Sure, here\'s what I can do:\n\n' +
-    '• `@Someone++`, `@Someone :taco:`, or give multiple tacos `@Someone @SomeoneElse Great job team! :taco: :taco:`: Give tacos to a user or thing\n' +
+    '• *@Someone++*, *@Someone :taco:*, or give multiple tacos *@Someone @SomeoneElse Great job team! :taco: :taco:*\n' +
     // '• `@Someone--`: Subtract points from a user or a thing\n' +
     // '• `@Someone==`: Gets current points from a user or a thing\n' +
     // '• `@Someone##`: Randomly adds or removes 1-5 points from a user or a thing\n' +
-    '• `<@' + botUserID + '> leaderboard`: Display the leaderboard for just you\n' +
+    '• *<@' + botUserID + '> leaderboard*: Display the leaderboard for just you\n' +
     // '• `<@' + botUserID + '> leaderboardall {your secret key from help}`: Display the leaderboard for everyone (you need your secret key)\n' +
-    '• `<@' + botUserID + '> help`: Display this help message\n\n' +
+    '• *<@' + botUserID + '> help*: Display this help message\n\n' +
     // '• `<@' + botUserID + '> helpall`: Display this message for everyone\n\n' +
     'You\'ll need to invite me to a channel before I can recognise ' +
-    '`++` and `:taco:` commands in it.\n\n' +
+    '*++* and *:taco:* commands in it.\n\n' +
     'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  '
 
 
@@ -207,16 +207,16 @@ const sendAllHelp = ( event ) => {
   const botUserID = helpers.extractUserID( event.text );
   const message = (
     'Sure, here\'s what I can do:\n\n' +
-    '• `@Someone++`, `@Someone :taco:`, or give multiple tacos `@Someone Great job! :taco: :taco:`: Give tacos to a user or thing\n' +
+    '• *@Someone++*, *@Someone :taco:*, or give multiple tacos *@Someone @SomeoneElse Great job team! :taco: :taco:*\n' +
     // '• `@Someone--`: Subtract points from a user or a thing\n' +
     // '• `@Someone==`: Gets current points from a user or a thing\n' +
     // '• `@Someone##`: Randomly adds or removes 1-5 points from a user or a thing\n' +
-    '• `<@' + botUserID + '> leaderboard`: Display the leaderboard for just you\n' +
+    '• *<@' + botUserID + '> leaderboard*: Display the leaderboard for just you\n' +
     // '• `<@' + botUserID + '> leaderboardall {your secret key from help}`: Display the leaderboard for everyone (you need your secret key)\n' +
-    '• `<@' + botUserID + '> help`: Display this help message\n\n' +
+    '• *<@' + botUserID + '> help*: Display this help message\n\n' +
     // '• `<@' + botUserID + '> helpall`: Display this message for everyone\n\n' +
     'You\'ll need to invite me to a channel before I can recognise ' +
-    '`++` and `:taco:` commands in it.\n\n' +
+    '*++* and *:taco:* commands in it.\n\n' +
     'If you\'re a developer, you can teach me new things! :awwww_yeah:\n\n  '
 
 
