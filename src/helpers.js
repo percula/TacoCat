@@ -73,7 +73,7 @@ const extractCommand = (message, commands) => {
 
    const peopleArray = text.match(peopleRegEx);
 
-   var organizedArray = [peopleArray, numTacos];
+   var organizedArray = [];
 
    if (peopleArray != null) {
      for (var i = 0; i < peopleArray.length; i++) {
