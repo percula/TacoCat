@@ -37,7 +37,8 @@ messages[ operations.PLUS ] = [
       'Delicious.',
       ':nyancat:',
       ':nyancat2:',
-      ':smile_cat:'
+      ':smile_cat:',
+      'om nom nom'
     ]
   },
   {
