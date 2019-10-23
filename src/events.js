@@ -42,14 +42,14 @@ const handleSelfPlus = ( user, channel ) => {
  * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
  *                   points have been updated.
  */
-const handlePlusMinus = async( item, operation, channel, userInit ) => {
+const handlePlusMinus = async( item, operation, quantity, channel, userInit ) => {
   console.log( userInit + ' triggered a operation on ' + item );
   const check = await points.checkCanUpdate(userInit);
   console.log( check);
   if (check)
   {
     console.log( userInit + ' has enough juice' );
-   const score = await points.updateScore( item, operation ),
+   const score = await points.updateScore( item, operation, quantity ),
         operationName = operations.getOperationName( operation ),
         message = messages.getRandomMessage( operationName, item, score );
         return slack.sendMessage( message, channel );
@@ -253,38 +253,19 @@ const handlers = {
     var result = true;
 
     for (var i = 0; i < data.length; i++) {
-      const { item, operation } = data[i];
+      const { item, quantity } = data[i];
 
-      //if (event.text.match(".*:taco:*.")) {
-      //  handleTaco(event.channel);
-      //}
-
-      if ( ! item || ! operation ) {
+      if ( ! item || ! quantity ) {
         return false;
       }
 
       // Bail if the user is trying to ++ themselves...
-      if ( item === event.user && '+' === operation ) {
+      if ( item === event.user ) {
         handleSelfPlus( event.user, event.channel );
-        return false;
-      }
-      // Bail if the user is trying to ## themselves...
-      if ( item === event.user && '#' === operation ) {
-        handleSelfPlus( event.user, event.channel );
-        return false;
-      }
-      if ( '=' === operation ) {
-        handlePlusEqual( item, operation, event.channel );
-      }
-      if ( '#' === operation ) {
-        handlePlusRandom( item, operation, event.channel );
-      }
-      if ( '!' === operation ) {
-        handlePlusReallyRandom( item, operation, event.channel );
       }
 
       // Otherwise, let's go!
-      handlePlusMinus( item, operation, event.channel, event.user );
+      handlePlusMinus( item, '+', quantity, event.channel, event.user );
     }
 
     return result;

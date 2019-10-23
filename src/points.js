@@ -23,7 +23,7 @@ const scoresTableName = 'scores',
       postgresPoolConfig = {
         connectionString: DATABASE_URL,
         ssl: DATABASE_USE_SSL
-      },userTrackerTableName = 'usertracker'; 
+      },userTrackerTableName = 'usertracker';
 
 
 
@@ -65,7 +65,7 @@ const retrieveTopScores = async() => {
  * @param {string} operation The mathematical operation performed on the item's score.
  * @return {int} The item's new score after the update has been applied.
  */
-const updateScore = async( item, operation ) => {
+const updateScore = async( item, operation, quantity ) => {
 
   // Connect to the DB, and create a table if it's not yet there.
   // We also set up the citext extension, so that we can easily be case insensitive.
@@ -78,8 +78,8 @@ const updateScore = async( item, operation ) => {
   // Atomically record the action.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   await dbClient.query( '\
-    INSERT INTO ' + scoresTableName + ' VALUES (\'' + item + '\', ' + operation + '1) \
-    ON CONFLICT (item) DO UPDATE SET score = ' + scoresTableName + '.score ' + operation + ' 1; \
+    INSERT INTO ' + scoresTableName + ' VALUES (\'' + item + '\', ' + operation + quantity + ') \
+    ON CONFLICT (item) DO UPDATE SET score = ' + scoresTableName + '.score ' + operation + ' ' + quantity + '; \
   ' );
 
   // Get the new value.
@@ -220,7 +220,7 @@ const getScore = async( item, operation ) => {
 const checkCanUpdate = async (user) => {
 
   const dbClient = await postgres.connect();
-  
+
   await dbClient.query( '\
      CREATE EXTENSION IF NOT EXISTS citext; \
    CREATE TABLE IF NOT EXISTS ' + userTrackerTableName + ' (theuser CITEXT PRIMARY KEY, operations INTEGER, ts INTEGER); \
@@ -239,12 +239,12 @@ var dbSelect = await dbClient.query( '\
 SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 ' );
 }
-  
+
 
 const userOperations =  dbSelect.rows[0].operations
 
   const userTS =  dbSelect.rows[0].ts
-  
+
   if ((Math.floor(new Date() / 1000) - userTS) < 3600) {
     if(userOperations >= MAX_OPS ) {
       await dbClient.release();

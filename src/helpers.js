@@ -62,16 +62,23 @@ const extractCommand = (message, commands) => {
  */
 
  const extractPlusMinusEventData = (text) => {
-   let regexp = /(@([!-=?-~]+)>?\s*(\+{2}|={2}|:taco:|:cat:))/g;
+   let tacoCatRegEx = /(\+{2}|:taco:)/g;
+   let peopleRegEx = /(@([!-=?-~]+)>?\s*)/g;
 
-   const array = text.match(regexp);
-   var organizedArray = [];
+   const tacoCatArray = text.match(tacoCatRegEx);
+   var numTacos = 0;
+   if (tacoCatArray != null && tacoCatArray.length > 0) {
+     numTacos = tacoCatArray.length;
+   }
 
-   for (var i = 0; i < array.length; i++) {
-     const data = array[i].match(/@([!-=?-~]+)>?\s*(\+{2}|={2}|:taco:|:cat:)/);
+   const peopleArray = text.match(peopleRegEx);
+
+   var organizedArray = [peopleArray, numTacos];
+
+   for (var i = 0; i < peopleArray.length; i++) {
      organizedArray.push({
-       item: data[1].toUpperCase(),
-       operation: data[2].replace(':taco:','+').replace(':cat:','+').substring(0, 1).replace('—', '-')
+       item: peopleArray[i].toUpperCase(),
+       quantity: numTacos
      })
    };
 
