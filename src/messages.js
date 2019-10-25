@@ -50,7 +50,7 @@ messages[ operations.PLUS ] = [
       ':cookie: :cookie: COOOOKIES!!! Oh wait, sorry, wrong reference',
       'Was it a car or a cat I saw?',
       'A nut for a jar of tuna',
-      'Never odd or even',
+      'Never odd or even'
     ]
   },
   {
