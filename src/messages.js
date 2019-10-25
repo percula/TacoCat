@@ -47,7 +47,10 @@ messages[ operations.PLUS ] = [
       'You\'ve gotta be kitten me!',
       ':smiley_cat:',
       ':heart_eyes_cat:',
-      ':cookie: :cookie: COOOOKIES!!! Oh wait, sorry, wrong reference'
+      ':cookie: :cookie: COOOOKIES!!! Oh wait, sorry, wrong reference',
+      'Was it a car or a cat I saw?',
+      'A nut for a jar of tuna',
+      'Never odd or even',
     ]
   },
   {
