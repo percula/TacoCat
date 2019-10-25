@@ -38,7 +38,16 @@ messages[ operations.PLUS ] = [
       ':nyancat:',
       ':nyancat2:',
       ':smile_cat:',
-      'om nom nom'
+      'Om nom nom',
+      'Aw yeah!',
+      'Let\'s taco \'bout how awesome you are!',
+      'If you don\'t like tacos, I\'m nacho type',
+      'Purr-fect!',
+      'Purr-ty good!',
+      'You\'ve gotta be kitten me!',
+      ':smiley_cat:',
+      ':heart_eyes_cat:',
+      ':cookie: :cookie: COOOOKIES!!! Oh wait, sorry, wrong reference'
     ]
   },
   {
