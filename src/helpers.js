@@ -71,7 +71,8 @@ const extractCommand = (message, commands) => {
      numTacos = tacoCatArray.length;
    }
 
-   const peopleArray = text.match(peopleRegEx);
+   const peopleSet = new Set(text.match(peopleRegEx));
+   const peopleArray = [...peopleSet];
 
    var organizedArray = [];
 
