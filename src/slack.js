@@ -198,5 +198,6 @@ module.exports = {
   getUserList,
   getUserName,
   sendMessage,
+  sendThreadMessage,
   sendEphemeral
 };
