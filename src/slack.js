@@ -113,6 +113,45 @@ const sendMessage = ( text, channel ) => {
 }; // SendMessage.
 
 /**
+ * Sends a message to a Slack channel.
+ *
+ * @param {string|Object} text    Either message text to send, or a Slack message payload. See the
+ *                                docs at https://api.slack.com/methods/chat.postMessage and
+ *                                https://api.slack.com/docs/message-formatting.
+ * @param {string}        channel The ID of the channel to send the message to. Can alternatively
+ *                                be provided as part of the payload in the previous argument.
+ * @return {Promise} A Promise to send the message to Slack.
+ */
+const sendThreadMessage = ( text, channel, thread_ts ) => {
+
+  let payload = {
+    channel,
+    thread_ts,
+    text
+  };
+
+  // If 'text' was provided as an object instead, merge it into the payload.
+  if ( 'object' === typeof text ) {
+    delete payload.text;
+    payload = Object.assign( payload, text );
+  }
+
+  return new Promise( ( resolve, reject ) => {
+    slack.chat.postMessage( payload ).then( ( data ) => {
+
+      if ( ! data.ok ) {
+        console.error( 'Error occurred posting response.' );
+        return reject();
+      }
+
+      resolve();
+
+    });
+
+  }); // Return new Promise.
+}; // SendMessage.
+
+/**
  * Sends a Ephemeral message to a Slack channel.
  *
  * @param {string|Object} text    Either message text to send, or a Slack message payload. See the
@@ -121,7 +160,7 @@ const sendMessage = ( text, channel ) => {
  * @param {string}        channel The ID of the channel to send the message to. Can alternatively
  *                                be provided as part of the payload in the previous argument.
  * @param {string}        user    the ID of the user to send the message to
- * 
+ *
  * @return {Promise} A Promise to send the message to Slack.
  */
 const sendEphemeral = ( text, channel, user ) => {
@@ -135,7 +174,7 @@ const sendEphemeral = ( text, channel, user ) => {
   // If 'text' was provided as an object instead, merge it into the payload.
   if ( 'object' === typeof text ) {
     delete payload.text;
-   
+
     payload = Object.assign( payload, text );
   }
 

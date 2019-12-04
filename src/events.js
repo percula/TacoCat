@@ -39,10 +39,11 @@ const handleSelfPlus = ( user, channel ) => {
  * @param {string} operation The mathematical operation performed on the item's score.
  * @param {object} channel   The ID of the channel (Cxxxxxxxx for public channels or Gxxxxxxxx for
  *                           private channels - aka groups) that the message was sent from.
+ * @param {string} ts        The timestamp of the event message
  * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
  *                   points have been updated.
  */
-const handlePlusMinus = async( item, operation, quantity, channel, userInit ) => {
+const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts ) => {
   console.log( userInit + ' triggered a operation on ' + item );
   const check = await points.checkCanUpdate(userInit);
   console.log( check);
@@ -52,7 +53,11 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit ) =>
    const score = await points.updateScore( item, operation, quantity ),
         operationName = operations.getOperationName( operation ),
         message = messages.getRandomMessage( operationName, item, score );
-        return slack.sendMessage( message, channel );
+        if (item == "test") {
+          return slack.sendThreadMessage( message, channel, ts );
+        } else {
+          return slack.sendMessage( message, channel );
+        }
   }
   else
   {
@@ -264,7 +269,7 @@ const handlers = {
         handleSelfPlus( event.user, event.channel );
       } else {
         // Otherwise, let's go!
-        handlePlusMinus( item, '+', quantity, event.channel, event.user );
+        handlePlusMinus( item, '+', quantity, event.channel, event.user, event.ts );
       }
 
     }
