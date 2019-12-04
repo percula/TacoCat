@@ -53,7 +53,7 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts 
    const score = await points.updateScore( item, operation, quantity ),
         operationName = operations.getOperationName( operation ),
         message = messages.getRandomMessage( operationName, item, score );
-        if (item == "test") {
+        if (item == "TEST") {
           return slack.sendThreadMessage( message, channel, ts );
         } else {
           return slack.sendMessage( message, channel );
