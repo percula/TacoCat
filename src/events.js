@@ -274,6 +274,28 @@ const handlers = {
   }, // Message event.
 
 
+  /**
+   * Handles standard incoming 'message' events sent from Slack.
+   *
+   * Assumes basic validation has been done before receiving the event. See handleEvent().
+   *
+   * @param {object} event  A hash of a validated Slack 'message' event. See the documentation at
+   *                        https://api.slack.com/events-api#events_dispatched_as_json and
+   *                        https://api.slack.com/events/message for details.
+   * @return {bool|Promise} Either `false` if the event cannot be handled, or a Promise to send a
+   *                        Slack message back to the requesting channel.
+   */
+
+
+      reaction_added: ( event ) => {
+
+    // Extract the relevant data from the message text.
+    handlePlusMinus( event.item_user, '+', 1, event.item.channel, event.user, event.item.ts );
+
+    return result;
+  }, // Message event.
+
+
 
   /**
    * Handles 'app_mention' events sent from Slack, primarily by looking for known app commands, and
@@ -350,14 +372,10 @@ const handleEvent = ( event, request ) => {
     return false;
   }
 
-  if ( event.type == 'reaction_added' && event.reaction == 'taco') {
-    console.log('Taco reaction added');
-    const eventName = camelCase( event.type );
-    console.log('Event name: ' + event.type);
-  }
+  let reaction = event.type == 'reaction_added' && event.reaction == 'taco';
 
   // If there's no text with the event, there's not a lot we can do.
-  if ( 'undefined' === typeof event.text || ! event.text.trim() ) {
+  if (!reaction && ('undefined' === typeof event.text || ! event.text.trim()) ) {
     console.warn( 'Event text missing' );
     return false;
   }
