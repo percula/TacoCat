@@ -291,9 +291,10 @@ const handlers = {
         // Bail if the user is trying to ++ themselves...
         if ( event.item_user != event.user ) {
           handlePlusMinus( event.item_user, '+', 1, event.item.channel, event.user, event.item.ts );
-        } else {
+          return true;
+        }
 
-    return result;
+    return false;
   }, // Message event.
 
 
