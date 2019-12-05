@@ -127,6 +127,7 @@ const handlePost = ( request, response ) => {
   // Ensure the verification token in the incoming request is valid.
   const validation = validateToken( request.body.token, SLACK_VERIFICATION_TOKEN );
   if ( true !== validation ) {
+    console.warn('Validation failed');
     response.status( validation.error ).send( validation.message );
     return false;
   }
