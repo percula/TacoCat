@@ -289,6 +289,17 @@ const handlers = {
 
       reactionAdded: ( event, request  ) => {
 
+        console.log('ReactionAdded');
+        let item = event.item;
+        let channel = item.channel;
+        console.log('Channel: ' + channel);
+        let receivingUser = event.item_user;
+        console.log('ReceivingUser: ' + receivingUser);
+        let givingUser = event.users;
+        console.log('GivingUser: ' + givingUser);
+        let ts = item.ts;
+        console.log('TS: ' + ts);
+
     // Extract the relevant data from the message text.
     handlePlusMinus( event.item_user, '+', 1, event.item.channel, event.user, event.item.ts );
 
@@ -380,15 +391,11 @@ const handleEvent = ( event, request ) => {
     return false;
   }
 
-  const eventName = camelCase( event.type );
-
-  let handler = handlers[ eventName ]
-  if (handler == null) {
-    console.log( 'Handler is null');
-  }
 
   // Providing we have a handler for the event, let's handle it!
+  const eventName = camelCase( event.type );
   if ( handlers[ eventName ] instanceof Function ) {
+    console.log( 'Handling event type: ' + event.type);
     return handlers[ eventName ] ( event, request );
   }
 
