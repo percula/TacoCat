@@ -137,6 +137,11 @@ const handlePost = ( request, response ) => {
       console.log(key);
     }
 
+    console.log('Param Keys:');
+    for (var key in request.params) {
+      console.log(key);
+    }
+    console.log('URL: ' + request.url);
 
     console.warn('Validation failed: token ' + request.body.token);
     response.status( validation.error ).send( validation.message );
