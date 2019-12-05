@@ -294,15 +294,15 @@ const handlers = {
         console.log('Item: ' + item);
         let channel = item.channel;
         console.log('Channel: ' + channel);
-        let receivingUser = event.item_user;
+        let receivingUser = event.itemUser;
         console.log('ReceivingUser: ' + receivingUser);
-        let givingUser = event.users;
+        let givingUser = event.user;
         console.log('GivingUser: ' + givingUser);
         let ts = item.ts;
         console.log('TS: ' + ts);
 
     // Extract the relevant data from the message text.
-    handlePlusMinus( event.item_user, '+', 1, event.item.channel, event.user, event.item.ts );
+    handlePlusMinus( event.itemUser, '+', 1, event.item.channel, event.user, event.item.ts );
 
     return result;
   }, // Message event.
