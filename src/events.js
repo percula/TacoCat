@@ -288,28 +288,8 @@ const handlers = {
 
 
       reactionAdded: ( event, request  ) => {
-
-        for (var key in event) {
-          console.log (key);
-        }
-
-        console.log('ReactionAdded');
-        let item = event.item;
-        for (var key in item) {
-          console.log (key);
-        }
-        console.log('Item: ' + item.toString());
-        let channel = item.channel;
-        console.log('Channel: ' + channel);
-        let receivingUser = event.item_user;
-        console.log('ReceivingUser: ' + receivingUser);
-        let givingUser = event.user;
-        console.log('GivingUser: ' + givingUser);
-        let ts = item.ts;
-        console.log('TS: ' + ts);
-
     // Extract the relevant data from the message text.
-    handlePlusMinus( item.user, '+', 1, event.item.channel, event.user, event.item.ts );
+    handlePlusMinus( event.item_user, '+', 1, event.item.channel, event.user, event.item.ts );
 
     return result;
   }, // Message event.
