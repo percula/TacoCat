@@ -291,6 +291,7 @@ const handlers = {
 
         console.log('ReactionAdded');
         let item = event.item;
+        console.log('Item: ' + item);
         let channel = item.channel;
         console.log('Channel: ' + channel);
         let receivingUser = event.item_user;
