@@ -350,6 +350,12 @@ const handleEvent = ( event, request ) => {
     return false;
   }
 
+  if ( event.type == 'reaction_added' && event.reaction == 'taco') {
+    console.log('Taco reaction added');
+    const eventName = camelCase( event.type );
+    console.log('Event name: ' + event.type);
+  }
+
   // If there's no text with the event, there's not a lot we can do.
   if ( 'undefined' === typeof event.text || ! event.text.trim() ) {
     console.warn( 'Event text missing' );
