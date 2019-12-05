@@ -380,13 +380,14 @@ const handleEvent = ( event, request ) => {
     return false;
   }
 
+  const eventName = camelCase( event.type );
+
   let handler = handlers[ eventName ]
   if (handler == null) {
     console.log( 'Handler is null');
   }
 
   // Providing we have a handler for the event, let's handle it!
-  const eventName = camelCase( event.type );
   if ( handlers[ eventName ] instanceof Function ) {
     return handlers[ eventName ] ( event, request );
   }
