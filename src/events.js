@@ -291,10 +291,10 @@ const handlers = {
 
         console.log('ReactionAdded');
         let item = event.item;
-        console.log('Item: ' + item);
+        console.log('Item: ' + item.toString());
         let channel = item.channel;
         console.log('Channel: ' + channel);
-        let receivingUser = event.itemUser;
+        let receivingUser = item.user;
         console.log('ReceivingUser: ' + receivingUser);
         let givingUser = event.user;
         console.log('GivingUser: ' + givingUser);
@@ -302,7 +302,7 @@ const handlers = {
         console.log('TS: ' + ts);
 
     // Extract the relevant data from the message text.
-    handlePlusMinus( event.itemUser, '+', 1, event.item.channel, event.user, event.item.ts );
+    handlePlusMinus( item.user, '+', 1, event.item.channel, event.user, event.item.ts );
 
     return result;
   }, // Message event.
