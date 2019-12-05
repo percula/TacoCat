@@ -294,8 +294,10 @@ const handlers = {
         console.log('Item: ' + item.toString());
         let channel = item.channel;
         console.log('Channel: ' + channel);
-        let receivingUser = item.user;
+        let receivingUser = event.getUserName();
+        let receivingUser2 = event.get('item_user');
         console.log('ReceivingUser: ' + receivingUser);
+        console.log('ReceivingUser2: ' + receivingUser2);
         let givingUser = event.user;
         console.log('GivingUser: ' + givingUser);
         let ts = item.ts;
