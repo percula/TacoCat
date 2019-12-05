@@ -289,12 +289,16 @@ const handlers = {
 
       reactionAdded: ( event, request  ) => {
 
+        for (var key in event) {
+          console.log (key);
+        }
+
         console.log('ReactionAdded');
         let item = event.item;
         console.log('Item: ' + item.toString());
         let channel = item.channel;
         console.log('Channel: ' + channel);
-        let receivingUser = event.get('item_user');
+        let receivingUser = event.item_user;
         console.log('ReceivingUser: ' + receivingUser);
         let givingUser = event.user;
         console.log('GivingUser: ' + givingUser);
