@@ -295,6 +295,9 @@ const handlers = {
 
         console.log('ReactionAdded');
         let item = event.item;
+        for (var key in item) {
+          console.log (key);
+        }
         console.log('Item: ' + item.toString());
         let channel = item.channel;
         console.log('Channel: ' + channel);
