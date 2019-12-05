@@ -287,7 +287,7 @@ const handlers = {
    */
 
 
-      reaction_added: ( event ) => {
+      reactionAdded: ( event, request  ) => {
 
     // Extract the relevant data from the message text.
     handlePlusMinus( event.item_user, '+', 1, event.item.channel, event.user, event.item.ts );
@@ -378,6 +378,11 @@ const handleEvent = ( event, request ) => {
   if (!reaction && ('undefined' === typeof event.text || ! event.text.trim()) ) {
     console.warn( 'Event text missing' );
     return false;
+  }
+
+  let handler = handlers[ eventName ]
+  if (handler == null) {
+    console.log( 'Handler is null');
   }
 
   // Providing we have a handler for the event, let's handle it!
