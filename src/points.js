@@ -73,10 +73,7 @@ const updateScore = async( item, operation, quantity ) => {
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
     CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempScore INTEGER); \
-    IF COL_LENGTH(\'' + scoresTableName + '\'\, \'tempScore\') IS NULL \
-      BEGIN \
-      END; \
-      ' );
+  ' );
 
   // Atomically record the action.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
