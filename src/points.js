@@ -77,8 +77,6 @@ const updateScore = async( item, operation, quantity ) => {
 
   try {
     await dbClient.query( '\
-    IF NOT EXISTS (SELECT tempScore FROM INFORMATION_SCHEMA.columns \
-             WHERE table_name = \'' + scoresTableName + '\' AND column_name = \'tempScore\') \
                     ALTER TABLE ' + scoresTableName + ' ADD tempScore INTEGER; \
     ' );
   }
