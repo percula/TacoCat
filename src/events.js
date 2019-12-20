@@ -63,25 +63,6 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts 
 };
 
 /**
- * Handles a random against a user, and then notifies the channel of the new score.
- *
- * @param {string} item      The Slack user ID (if user) or name (if thing) of the item being
- *                           operated on.
- * @param {string} operation The mathematical operation performed on the item's score.
- * @param {object} channel   The ID of the channel (Cxxxxxxxx for public channels or Gxxxxxxxx for
- *                           private channels - aka groups) that the message was sent from.
- * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
- *                   points have been updated.
- */
-const handlePlusRandom = async( item, operation, channel ) => {
-  const score = await points.randomScore( item, operation ),
-        operationName = operations.getOperationName( operation ),
-        message = messages.getRandomMessage( operationName, item, score );
-
-  return slack.sendMessage( message, channel );
-};
-
-/**
  * Handles a taco against a user, and then notifies the channel of the new score.
  *
  * @param {object} channel   The ID of the channel (Cxxxxxxxx for public channels or Gxxxxxxxx for
@@ -92,24 +73,6 @@ const handlePlusRandom = async( item, operation, channel ) => {
 const handleTaco = async(channel ) => {
 
   return slack.sendMessage( ":taco:!", channel );
-};
-/**
- * Handles a really random against a user, and then notifies the channel of the new score.
- *
- * @param {string} item      The Slack user ID (if user) or name (if thing) of the item being
- *                           operated on.
- * @param {string} operation The mathematical operation performed on the item's score.
- * @param {object} channel   The ID of the channel (Cxxxxxxxx for public channels or Gxxxxxxxx for
- *                           private channels - aka groups) that the message was sent from.
- * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
- *                   points have been updated.
- */
-const handlePlusReallyRandom = async( item, operation, channel ) => {
-  const score = await points.reallyRandomScore( item, operation ),
-        operationName = operations.getOperationName( operation ),
-        message = messages.getRandomMessage( operationName, item, score );
-
-  return slack.sendMessage( message, channel );
 };
 
 /**
