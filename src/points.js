@@ -75,8 +75,7 @@ const updateScore = async( item, operation, quantity ) => {
     CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempScore INTEGER); \
     IF COL_LENGTH(\'' + scoresTableName + '\'\, \'tempScore\') IS NULL \
       BEGIN \
-        ALTER TABLE ' + scoresTableName + ' ADD tempScore INTEGER \
-      END;
+      END; \
       ' );
 
   // Atomically record the action.
