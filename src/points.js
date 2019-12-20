@@ -72,8 +72,12 @@ const updateScore = async( item, operation, quantity ) => {
   const dbClient = await postgres.connect();
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
-    CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER); \
-  ' );
+    CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempScore INTEGER); \
+    IF COL_LENGTH(\'' + scoresTableName + '\'\, \'tempScore\') IS NULL \
+      BEGIN \
+        ALTER TABLE ' + scoresTableName + ' ADD tempScore INT NULL \
+      END
+      ' );
 
   // Atomically record the action.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
