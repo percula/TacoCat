@@ -77,7 +77,7 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
     }
 
     const itemTitleCase = item.substring( 0, 1 ).toUpperCase() + item.substring( 1 ),
-          tempPlural = helpers.isPlural( score.tempscore ) ? 's' : '';
+          tempPlural = helpers.isPlural( score.tempscore ) ? 's' : '',
           plural = helpers.isPlural( score.score ) ? 's' : '';
 
     // Determine the rank by keeping it the same as the last user if the score is the same, or
