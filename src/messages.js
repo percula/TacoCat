@@ -151,7 +151,7 @@ messages[ operations.REALLYRANDOM ] = [
  *
  * @returns {string} A random message from the chosen pool.
  */
-const getRandomMessage = (operation, item, score = 0, tempScore = 0) => {
+const getRandomMessage = (operation, item, score = 0, tempscore = 0) => {
 
   const messageSets = messages[operation];
   let format = '';
@@ -159,7 +159,7 @@ const getRandomMessage = (operation, item, score = 0, tempScore = 0) => {
   switch (operation) {
     case operations.MINUS:
     case operations.PLUS:
-      format = '<message> *<item>* has <tempScore> :taco:<plural>. (<score> total)';
+      format = '<message> *<item>* has <tempscore> :taco:<plural>. (<score> total)';
       break;
 
     case operations.SELF:
