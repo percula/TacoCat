@@ -103,7 +103,7 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
           rank,
           item: itemTitleCase,
           tempscore: score.tempscore + ' 🌮' + tempPlural,
-          score: '(' + score.score + ' lifetime 🌮' + plural + ')'
+          score: '(' + score.score + ' total)'
         };
         break;
     }
