@@ -41,7 +41,7 @@ const postgres = new pg.Pool( postgresPoolConfig );
  */
 const retrieveTopScores = async() => {
 
-  const query = 'SELECT * FROM ' + scoresTableName + ' ORDER BY score DESC';
+  const query = 'SELECT * FROM ' + scoresTableName + ' ORDER BY tempscore DESC';
 
   const dbClient = await postgres.connect(),
         result = await dbClient.query( query ),
