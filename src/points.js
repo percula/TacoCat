@@ -84,16 +84,21 @@ const updateScore = async( item, operation, quantity ) => {
     ON CONFLICT (item) DO UPDATE SET tempScore = ' + scoresTableName + '.tempScore ' + operation + ' ' + quantity + '; \
   ' );
 
-  // Get the new value.
+  // Get the new values.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   const dbSelect = await dbClient.query( '\
     SELECT score FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
   ' );
+  const dbSelectTemp = await dbClient.query( '\
+    SELECT tempScore FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
+  ' );
 
   await dbClient.release();
   const score = dbSelect.rows[0].score;
+  const tempScore = dbSelect.rows[0].tempScore;
 
-  console.log( item + ' now on ' + score );
+  console.log( item + ' now at ' + score + ' and temp at ' + tempScore );
+
   return score;
 
 }; // UpdateScore.
