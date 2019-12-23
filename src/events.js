@@ -52,7 +52,7 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts 
     console.log( userInit + ' has enough juice' );
    const score = await points.updateScore( item, operation, quantity ),
         operationName = operations.getOperationName( operation ),
-        message = messages.getRandomMessage( operationName, item, score );
+        message = messages.getRandomMessage( operationName, item, score[0], score[1] );
         return slack.sendThreadMessage( message, channel, ts );
   }
   else
