@@ -107,7 +107,7 @@ const resetTempScores = async( ) => {
   const dbClient = await postgres.connect();
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
-    UPDATE ' + scoresTableName + ' SET tempscore = 0); \
+    UPDATE ' + scoresTableName + ' SET tempscore = 0; \
   ' );
 
   await dbClient.release();
