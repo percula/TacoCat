@@ -296,7 +296,7 @@ const handlers = {
     const appCommandHandlers = {
       leaderboardall: leaderboard.allHandler,
       leaderboard: leaderboard.handler,
-      kill_tacocat:reset,
+      reincarnate:reset,
       helpall: sendAllHelp,
       help: sendHelp,
       thx: sayThankyou,
