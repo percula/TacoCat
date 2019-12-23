@@ -90,7 +90,7 @@ const updateScore = async( item, operation, quantity ) => {
 
   await dbClient.release();
   const score = dbSelect.rows[0].score;
-  const tempScore = dbSelect.rows[0].tempScore;
+  const tempScore = dbSelect.rows[0].tempscore;
 
   console.log( item + ' now at ' + score + ' and temp at ' + tempScore );
 
