@@ -8,9 +8,7 @@ const operations = {
   PLUS: 'plus',
   MINUS: 'minus',
   SELF: 'selfPlus',
-  RANDOM: 'random',
-  EQUAL: 'equal',
-  REALLYRANDOM: 'reallyrandom'
+  EQUAL: 'equal'
 };
 
 /**
@@ -27,8 +25,6 @@ const getOperationName = ( operation ) => {
     case '+': operationName = operations.PLUS; break;
     case '-': operationName = operations.MINUS; break;
     case '=': operationName = operations.EQUAL; break;
-    case '#': operationName = operations.RANDOM; break;
-    case '!': operationName = operations.REALLYRANDOM; break;
   }
   /* eslint-enable max-statements-per-line */
 

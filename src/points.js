@@ -72,20 +72,20 @@ const updateScore = async( item, operation, quantity ) => {
   const dbClient = await postgres.connect();
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
-    CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempScore INTEGER); \
+    CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempscore INTEGER); \
   ' );
 
   // Atomically record the action.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   await dbClient.query( '\
     INSERT INTO ' + scoresTableName + ' VALUES (\'' + item + '\', ' + operation + quantity + ', ' + operation + quantity + ') \
-    ON CONFLICT (item) DO UPDATE SET score = ' + scoresTableName + '.score ' + operation + ' ' + quantity + ', tempScore = ' + scoresTableName + '.tempScore ' + operation + ' ' + quantity + '; \
+    ON CONFLICT (item) DO UPDATE SET score = ' + scoresTableName + '.score ' + operation + ' ' + quantity + ', tempscore = ' + scoresTableName + '.tempscore ' + operation + ' ' + quantity + '; \
   ' );
 
   // Get the new values.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   const dbSelect = await dbClient.query( '\
-    SELECT score, tempScore FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
+    SELECT score, tempscore FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
   ' );
 
   await dbClient.release();

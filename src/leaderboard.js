@@ -77,17 +77,18 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
     }
 
     const itemTitleCase = item.substring( 0, 1 ).toUpperCase() + item.substring( 1 ),
+          tempPlural = helpers.isPlural( score.tempscore ) ? 's' : '';
           plural = helpers.isPlural( score.score ) ? 's' : '';
 
     // Determine the rank by keeping it the same as the last user if the score is the same, or
     // otherwise setting it to the same as the item count (and adding 1 to deal with 0-base count).
-    const rank = score.score === lastScore ? lastRank : items.length + 1;
+    const rank = score.tempscore === lastScore ? lastRank : items.length + 1;
 
     switch ( format ) {
       case 'slack':
 
         output = (
-          rank + '. ' + itemTitleCase + ' [' + score.score + ' :taco:' + plural + ']'
+          rank + '. ' + itemTitleCase + ' [' + score.tempscore + ' :taco:' + plural + ' (' + score.score + ' total)]'
         );
 
         // If this is the first item, it's the winner!
@@ -101,6 +102,7 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
         output = {
           rank,
           item: itemTitleCase,
+//          tempscore: score.tempscore + ' point' + tempPlural,
           score: score.score + ' point' + plural
         };
         break;
@@ -109,7 +111,7 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
     items.push( output );
 
     lastRank = rank;
-    lastScore = score.score;
+    lastScore = score.tempscore;
 
   } // For scores.
 
