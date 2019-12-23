@@ -106,7 +106,7 @@ const handlePlusEqual = async( item, operation, channel ) => {
 const reset = async( event ) => {
   await points.resetTempScores();
 
-  return slack.sendMessage( "TacoCat began another one of it\'s many lives.", channel );
+  return slack.sendMessage( "TacoCat began another one of it\'s many lives.", event.channel );
 };
 
 
