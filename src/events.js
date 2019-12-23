@@ -95,6 +95,25 @@ const handlePlusEqual = async( item, operation, channel ) => {
 };
 
 /**
+ * Resets the temporary scores.
+ *
+ *  @param {object} event   A hash of a validated Slack 'app_mention' event. See the docs at
+ *                         https://api.slack.com/events-api#events_dispatched_as_json and
+ *                         https://api.slack.com/events/app_mention for details.
+ * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
+ *                   points have been updated.
+ */
+const reset = async( events_dispatched_as_json ) => {
+  const score = await points.getScore( item, operation ),
+        operationName = operations.getOperationName( operation ),
+        message = messages.getRandomMessage( operationName, item, score );
+
+  return slack.sendMessage( "TacoCat began another one of it\'s many lives.", channel );
+};
+
+
+
+/**
  * Sends a random thank you message to the requesting channel.
  *
  * @param {object} event   A hash of a validated Slack 'app_mention' event. See the docs at
@@ -279,6 +298,7 @@ const handlers = {
     const appCommandHandlers = {
       leaderboardall: leaderboard.allHandler,
       leaderboard: leaderboard.handler,
+      reset:reset,
       helpall: sendAllHelp,
       help: sendHelp,
       thx: sayThankyou,
@@ -362,6 +382,7 @@ const handleEvent = ( event, request ) => {
 module.exports = {
   handleSelfPlus,
   handlePlusMinus,
+  reset,
   sayThankyou,
   sendHelp,
   sendAllHelp,

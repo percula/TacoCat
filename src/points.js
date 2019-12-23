@@ -99,6 +99,21 @@ const updateScore = async( item, operation, quantity ) => {
 }; // UpdateScore.
 
 /**
+ * Resets the temporary scores of all items in the database.
+ */
+const resetTempScores = async( ) => {
+
+  // Connect to the DB
+  const dbClient = await postgres.connect();
+  await dbClient.query( '\
+    CREATE EXTENSION IF NOT EXISTS citext; \
+    UPDATE ' + scoresTableName + ' SET tempscore = 0); \
+  ' );
+
+  await dbClient.release();
+}; // UpdateScore.
+
+/**
  * Gets score
  * into the database with an assumed initial score of 0.
  *
