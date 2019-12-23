@@ -75,10 +75,6 @@ const updateScore = async( item, operation, quantity ) => {
     CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempScore INTEGER); \
   ' );
 
-  await dbClient.query( '\
-    UPDATE ' + scoresTableName + ' SET tempScore = 0; \
-  ' );
-
   // Atomically record the action.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   await dbClient.query( '\
