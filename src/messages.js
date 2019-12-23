@@ -147,11 +147,11 @@ messages[ operations.REALLYRANDOM ] = [
  *                            See operations.js.
  * @param {string}  item      The subject of the message, eg. 'U12345678' or 'SomeRandomThing'.
  * @param {integer} score     The item's current score. Defaults to 0 if not supplied.
- * @param {integer} tempScore     The item's current score. Defaults to 0 if not supplied.
+ * @param {integer} tempscore     The item's current score. Defaults to 0 if not supplied.
  *
  * @returns {string} A random message from the chosen pool.
  */
-const getRandomMessage = (operation, item, score = 0, tempscore = 0) => {
+const getRandomMessage = (operation, item, score = 0, tempScore = 0) => {
 
   const messageSets = messages[operation];
   let format = '';
@@ -159,7 +159,7 @@ const getRandomMessage = (operation, item, score = 0, tempscore = 0) => {
   switch (operation) {
     case operations.MINUS:
     case operations.PLUS:
-      format = '<message> *<item>* has <tempscore> :taco:<plural>. (<score> total)';
+      format = '<message> *<item>* has <tempScore> :taco:<plural>. (<score> total)';
       break;
 
     case operations.SELF:
@@ -204,6 +204,7 @@ const getRandomMessage = (operation, item, score = 0, tempscore = 0) => {
 
   const formattedMessage = format.replace('<item>', helpers.maybeLinkItem(item))
     .replace('<score>', score)
+    .replace('<tempScore>', tempScore)
     .replace('<plural>', plural)
     .replace('<message>', message);
 
