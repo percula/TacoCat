@@ -103,10 +103,8 @@ const handlePlusEqual = async( item, operation, channel ) => {
  * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
  *                   points have been updated.
  */
-const reset = async( events_dispatched_as_json ) => {
-  const score = await points.getScore( item, operation ),
-        operationName = operations.getOperationName( operation ),
-        message = messages.getRandomMessage( operationName, item, score );
+const reset = async( event ) => {
+  await points.resetTempScores();
 
   return slack.sendMessage( "TacoCat began another one of it\'s many lives.", channel );
 };
