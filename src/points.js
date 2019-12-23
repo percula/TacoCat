@@ -145,7 +145,7 @@ const getScore = async( item, operation ) => {
   const score = dbSelect.rows[0].score;
   const tempScore = dbSelect.rows[0].tempscore;
 
-  console.log( item + ' now on ' + score );
+  console.log( item + ' now at ' + score + ' and temp at ' + tempScore );
   const scores = [score, tempScore];
   return scores;
 };
