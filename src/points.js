@@ -132,22 +132,22 @@ const getScore = async( item, operation ) => {
   const dbClient = await postgres.connect();
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
-    CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER); \
+    CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempscore INTEGER); \
   ' );
 
   // Get the new value.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   const dbSelect = await dbClient.query( '\
-    SELECT score FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
+    SELECT score, tempscore FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
   ' );
 
   await dbClient.release();
   const score = dbSelect.rows[0].score;
+  const tempScore = dbSelect.rows[0].tempscore;
 
   console.log( item + ' now on ' + score );
-  return score;
-
-}; // UpdateScore.
+  return [score, tempScore];
+};
 
 const checkCanUpdate = async (user) => {
 
