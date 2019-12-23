@@ -102,8 +102,8 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
         output = {
           rank,
           item: itemTitleCase,
-//          tempscore: score.tempscore + ' point' + tempPlural,
-          score: score.score + ' point' + plural
+          tempscore: score.tempscore + ' 🌮' + tempPlural,
+          score: '(' + score.score + ' lifetime 🌮' + plural + ')'
         };
         break;
     }
@@ -216,16 +216,6 @@ const getForAllSlack = async( event, request ) => {
           // {
           //   title: 'Things',
           //   value: things.slice( 0, limit ).join( '\n' ),
-          //   short: true
-          // },
-          //{
-          //  title: 'Biggest Loser Users',
-          //  value: users.slice( -5 ).join( '\n' ),
-          //  short: true
-          // }//,
-          // {
-          //   title: 'Biggest Loser Things',
-          //   value: things.slice( -5 ).join( '\n' ),
           //   short: true
           // }
         ]

@@ -67,6 +67,12 @@ li {
   color: #aaa;
 }
 
+.tempscore {
+  margin-left: .25em;
+  font-size: .95em;
+  color: #aaa;
+}
+
 @media only screen and (min-width: 430px) {
 
   body {
