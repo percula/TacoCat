@@ -87,9 +87,9 @@ const handleTaco = async(channel ) => {
  *                   points have been updated.
  */
 const handlePlusEqual = async( item, operation, channel ) => {
-  const score = await points.getScore( item, operation ),
+  const scores = await points.getScore( item, operation ),
         operationName = operations.getOperationName( operation ),
-        message = messages.getRandomMessage( operationName, item, score );
+        message = messages.getRandomMessage( operationName, item, scores[0], scores[1]);
 
   return slack.sendMessage( message, channel );
 };

@@ -146,7 +146,8 @@ const getScore = async( item, operation ) => {
   const tempScore = dbSelect.rows[0].tempscore;
 
   console.log( item + ' now on ' + score );
-  return [score, tempScore];
+  const scores = [score, tempScore];
+  return scores;
 };
 
 const checkCanUpdate = async (user) => {

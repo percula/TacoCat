@@ -147,15 +147,14 @@ messages[ operations.REALLYRANDOM ] = [
  *                            See operations.js.
  * @param {string}  item      The subject of the message, eg. 'U12345678' or 'SomeRandomThing'.
  * @param {integer} score     The item's current score. Defaults to 0 if not supplied.
+ * @param {integer} tempScore     The item's current score. Defaults to 0 if not supplied.
  *
  * @returns {string} A random message from the chosen pool.
  */
-const getRandomMessage = (operation, item, scoreArray = [0,0]) => {
+const getRandomMessage = (operation, item, score = 0, tempScore = 0) => {
 
   const messageSets = messages[operation];
   let format = '';
-  const score = scoreArray[0];
-  const tempScore = scoreArray[1];
 
   switch (operation) {
     case operations.MINUS:
