@@ -209,6 +209,7 @@ const userOperations =  dbSelect.rows[0].operations
 
 module.exports = {
   retrieveTopScores,
+  resetTempScores,
   updateScore,
   getScore,
   checkCanUpdate
