@@ -87,10 +87,7 @@ const updateScore = async( item, operation, quantity ) => {
   // Get the new values.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   const dbSelect = await dbClient.query( '\
-    SELECT score FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
-  ' );
-  const dbSelectTemp = await dbClient.query( '\
-    SELECT tempScore FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
+    SELECT score, tempScore FROM ' + scoresTableName + ' WHERE item = \'' + item + '\'; \
   ' );
 
   await dbClient.release();
