@@ -80,6 +80,8 @@ const updateScore = async( item, operation, quantity ) => {
   await dbClient.query( '\
     INSERT INTO ' + scoresTableName + ' VALUES (\'' + item + '\', ' + operation + quantity + ') \
     ON CONFLICT (item) DO UPDATE SET score = ' + scoresTableName + '.score ' + operation + ' ' + quantity + '; \
+    INSERT INTO ' + scoresTableName + ' VALUES (\'' + item + '\', ' + operation + quantity + ') \
+    ON CONFLICT (item) DO UPDATE SET tempScore = ' + scoresTableName + '.tempScore ' + operation + ' ' + quantity + '; \
   ' );
 
   // Get the new value.
