@@ -76,7 +76,7 @@ const updateScore = async( item, operation, quantity ) => {
   ' );
 
   await dbClient.query( '\
-    UPDATE ' + scoresTableName + ' SET tempScore 0; \
+    UPDATE ' + scoresTableName + ' SET tempScore = 0; \
   ' );
 
   // Atomically record the action.
