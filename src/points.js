@@ -94,8 +94,8 @@ const updateScore = async( item, operation, quantity ) => {
 
   console.log( item + ' now at ' + score + ' and temp at ' + tempScore );
 
-  return score;
-
+  const scores = [score, tempScore];
+  return scores;
 }; // UpdateScore.
 
 /**
