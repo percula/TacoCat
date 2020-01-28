@@ -180,7 +180,7 @@ SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 
   const userTS =  dbSelect.rows[0].ts
 
-  if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
+  if ((Math.floor(new Date() / 1000) - userTS) < 43200) {
     if(remainingFuel <= 0) {
       await dbClient.release();
       return false;
