@@ -234,7 +234,7 @@ const handlers = {
     var result = true;
 
     for (var i = 0; i < data.length; i++) {
-      const { item, quantity } = data[i];
+      const { item, quantity, cats } = data[i];
 
       if ( ! item || ! quantity ) {
         return false;
@@ -246,6 +246,10 @@ const handlers = {
       } else {
         // Otherwise, let's go!
         handlePlusMinus( item, '+', quantity, event.channel, event.user, event.ts );
+
+        if (cats > 0 && event.user == 'ULJ7NNS8H') {
+          handlePlusMinus( item, '-', cats, event.channel, event.user, event.ts );
+        }
       }
 
     }

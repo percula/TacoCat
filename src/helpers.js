@@ -63,12 +63,18 @@ const extractCommand = (message, commands) => {
 
  const extractPlusMinusEventData = (text) => {
    let tacoCatRegEx = /(\+{2}|:taco:)/g;
+   let catRegEx = /(\+{2}|:cat:)/g;
    let peopleRegEx = /(@([!-=?-~]+))/g;
 
    const tacoCatArray = text.match(tacoCatRegEx);
+   const catArray = text.match(catRegEx);
    var numTacos = 0;
+   var numCats = 0;
    if (tacoCatArray != null && tacoCatArray.length > 0) {
      numTacos = tacoCatArray.length;
+   }
+   if (catArray != null && catArray.length > 0) {
+     numCats = catArray.length;
    }
 
    const peopleSet = new Set(text.match(peopleRegEx));
@@ -80,7 +86,8 @@ const extractCommand = (message, commands) => {
      for (var i = 0; i < peopleArray.length; i++) {
        organizedArray.push({
          item: peopleArray[i].substring(1).replace("++","").replace(":taco:","").toUpperCase(),
-         quantity: numTacos
+         quantity: numTacos,
+         cats: numCats
        })
      };
    }
