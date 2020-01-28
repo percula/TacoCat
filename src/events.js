@@ -270,7 +270,7 @@ const handlers = {
       reactionAdded: ( event, request  ) => {
         // Bail if the user is trying to ++ themselves...
         if ( event.item_user != event.user ) {
-          handlePlusMinus( event.item_user, '+', 1, event.item.channel, event.user, event.item.ts );
+          // handlePlusMinus( event.item_user, '+', 1, event.item.channel, event.user, event.item.ts );
           return true;
         }
 
