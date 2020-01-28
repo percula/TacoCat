@@ -236,12 +236,12 @@ const handlers = {
     for (var i = 0; i < data.length; i++) {
       const { item, quantity, cats } = data[i];
 
-      if ( ! item || ! quantity ) {
-        return false;
-      }
-
       if (cats > 0 && event.user == 'ULJ7NNS8H') {
         handlePlusMinus( item, '-', cats, event.channel, event.user, event.ts );
+      }
+
+      if ( ! item || ! quantity ) {
+        return false;
       }
 
       // Bail if the user is trying to ++ themselves...
@@ -342,7 +342,7 @@ const handlers = {
  *                        by the event's handler function.
  */
 const handleEvent = ( event, request ) => {
-  console.log('handleEvent');
+  console.log('handleEvent, user: ' + event.user);
 
   // If the event has no type, something has gone wrong.
   if ( 'undefined' === typeof event.type ) {
