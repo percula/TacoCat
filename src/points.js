@@ -150,7 +150,7 @@ const getScore = async( item, operation ) => {
   return scores;
 };
 
-const checkCanUpdate = async (user) => {
+const checkCanUpdate = async (user, quantity) => {
 
   const dbClient = await postgres.connect();
 
@@ -185,8 +185,8 @@ const userOperations =  dbSelect.rows[0].operations
     }
     else {
       await dbClient.query( '\
-      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + '1, ' + userTS + ' ) \
-      ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations +1) +'; \
+      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + quantity + ', ' + userTS + ' ) \
+      ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations + quantity) +'; \
     ' );
     await dbClient.release();
       return true;
@@ -194,8 +194,8 @@ const userOperations =  dbSelect.rows[0].operations
   }
   else {
     const test = await dbClient.query( '\
-      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', 1, ' + (Math.floor(new Date() / 1000) ) + '  ) \
-      ON CONFLICT (theuser) DO UPDATE SET operations = 1, ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
+      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + quantity + ', ' + (Math.floor(new Date() / 1000) ) + '  ) \
+      ON CONFLICT (theuser) DO UPDATE SET operations = ' + quantity + ', ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
     await dbClient.release();
     return true;

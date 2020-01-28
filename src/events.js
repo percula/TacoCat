@@ -45,7 +45,7 @@ const handleSelfPlus = ( user, channel ) => {
  */
 const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts ) => {
   console.log( userInit + ' triggered a operation on ' + item );
-  const check = await points.checkCanUpdate(userInit);
+  const check = await points.checkCanUpdate(userInit, quantity);
   console.log( check);
   if (check)
   {
