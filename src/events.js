@@ -240,16 +240,16 @@ const handlers = {
         return false;
       }
 
+      if (cats > 0 && event.user == 'ULJ7NNS8H') {
+        handlePlusMinus( item, '-', cats, event.channel, event.user, event.ts );
+      }
+
       // Bail if the user is trying to ++ themselves...
       if ( item === event.user ) {
         handleSelfPlus( event.user, event.channel );
       } else {
         // Otherwise, let's go!
         handlePlusMinus( item, '+', quantity, event.channel, event.user, event.ts );
-
-        if (cats > 0 && event.user == 'ULJ7NNS8H') {
-          handlePlusMinus( item, '-', cats, event.channel, event.user, event.ts );
-        }
       }
 
     }
