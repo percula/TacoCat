@@ -174,19 +174,21 @@ SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 }
 
 
-const userOperations =  dbSelect.rows[0].operations
+  const userOperations =  dbSelect.rows[0].operations;
+  const remainingFuel = MAX_OPS - userOperations;
+  const actualQuantity = Math.min(remainingFuel, quantity);
 
   const userTS =  dbSelect.rows[0].ts
 
-  if ((Math.floor(new Date() / 1000) - userTS) < 3600) {
-    if(userOperations >= MAX_OPS ) {
+  if ((Math.floor(new Date() / 1000) - userTS) < 86400) {
+    if(remainingFuel <= 0) {
       await dbClient.release();
       return false;
     }
     else {
       await dbClient.query( '\
-      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + quantity + ', ' + userTS + ' ) \
-      ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations + quantity) +'; \
+      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + '+' + actualQuantity + ', ' + userTS + ' ) \
+      ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations + actualQuantity) +'; \
     ' );
     await dbClient.release();
       return true;
@@ -194,17 +196,13 @@ const userOperations =  dbSelect.rows[0].operations
   }
   else {
     const test = await dbClient.query( '\
-      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + quantity + ', ' + (Math.floor(new Date() / 1000) ) + '  ) \
-      ON CONFLICT (theuser) DO UPDATE SET operations = ' + quantity + ', ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
+      INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + actualQuantity + ', ' + (Math.floor(new Date() / 1000) ) + '  ) \
+      ON CONFLICT (theuser) DO UPDATE SET operations = ' + actualQuantity + ', ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
     await dbClient.release();
     return true;
-
   }
   await dbClient.release();
-
-
-
 
 };
 

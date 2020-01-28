@@ -58,7 +58,7 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts 
   else
   {
     console.log( userInit + 'CANNOT UPDATE ' + item );
-    return slack.sendMessage( 'No Soup for <@' + userInit + '>!\nSorry but you exceded your :taco: limit, check back in 1 hour', channel );
+    return slack.sendMessage( 'No Soup for <@' + userInit + '>!\nSorry but you exceded your :taco: limit, check back tomorrow', channel );
   }
 };
 
