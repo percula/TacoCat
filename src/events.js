@@ -16,6 +16,10 @@ const slack = require( './slack' ),
 
 const camelCase = require( 'lodash.camelcase' );
 
+const MAX_QUANTITY_PER_OP = process.env.MAX_QUANTITY_PER_OP;
+const MAX_OPS = process.env.MAX_OPS;
+const MAX_OPS_DURATION = process.env.MAX_OPS_DURATION;
+
 /**
  * Handles an attempt by a user to 'self plus' themselves, which includes both logging the attempt
  * and letting the user know it wasn't successful.
@@ -45,20 +49,24 @@ const handleSelfPlus = ( user, channel ) => {
  */
 const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts ) => {
   console.log( userInit + ' triggered a operation on ' + item );
-  const check = await points.checkCanUpdate(userInit, quantity);
+  const actualQuantity = await points.checkCanUpdate(userInit, quantity);
   console.log( check);
-  if (check)
-  {
+  if (actualQuantity > 0) {
     console.log( userInit + ' has enough juice' );
-   const score = await points.updateScore( item, operation, quantity ),
-        operationName = operations.getOperationName( operation ),
-        message = messages.getRandomMessage( operationName, item, score[0], score[1] );
-        return slack.sendThreadMessage( message, channel, ts );
+   const score = await points.updateScore( item, operation, actualQuantity ),
+        operationName = operations.getOperationName( operation );
+  const message;
+  if (quantity > MAX_QUANTITY_PER_OP && actualQuantity == MAX_QUANTITY_PER_OP) {
+    message = messages.getRandomMessage( operationName, item, score[0], score[1] ) + '. (Only gave ' + actualQuantity + ':taco:s because that\'s the :taco: limit per message)';
+  } else if (actualQuantity < quantity) {
+    message = messages.getRandomMessage( operationName, item, score[0], score[1] ) + '. (Only gave ' + actualQuantity + ':taco:s because you\'re now out of :taco:s)';
+  } else {
+    message = messages.getRandomMessage( operationName, item, score[0], score[1] );
   }
-  else
-  {
+    return slack.sendThreadMessage( message, channel, ts );
+  } else {
     console.log( userInit + 'CANNOT UPDATE ' + item );
-    return slack.sendMessage( 'No Soup for <@' + userInit + '>!\nSorry but you exceded your :taco: limit, check back tomorrow', channel );
+    return slack.sendMessage( 'Sorry <@' + userInit + '> but you exceded your :taco: limit, check back tomorrow', channel );
   }
 };
 

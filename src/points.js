@@ -18,6 +18,8 @@ const DATABASE_URL = process.env.DATABASE_URL,
       DATABASE_USE_SSL = 'false' === process.env.DATABASE_USE_SSL ? false : true;
 const MAX_OPS = process.env.MAX_OPS;
 const MAX_OPS_DURATION = process.env.MAX_OPS_DURATION;
+const MAX_QUANTITY_PER_OP = process.env.MAX_QUANTITY_PER_OP;
+
 /* eslint-enable no-process-env */
 
 const scoresTableName = 'scores',
@@ -177,14 +179,14 @@ SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 
   const userOperations =  dbSelect.rows[0].operations;
   const remainingFuel = MAX_OPS - userOperations;
-  const actualQuantity = Math.min(remainingFuel, quantity);
+  const actualQuantity = Math.min(remainingFuel, quantity, MAX_QUANTITY_PER_OP);
 
   const userTS =  dbSelect.rows[0].ts
 
   if ((Math.floor(new Date() / 1000) - userTS) < (MAX_OPS_DURATION * 60 * 60)) {
     if(remainingFuel <= 0) {
       await dbClient.release();
-      return false;
+      return 0;
     }
     else {
       await dbClient.query( '\
@@ -192,7 +194,7 @@ SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
       ON CONFLICT (theuser) DO UPDATE SET operations = ' + (userOperations + actualQuantity) +'; \
     ' );
     await dbClient.release();
-      return true;
+      return actualQuantity;
     }
   }
   else {
@@ -201,7 +203,7 @@ SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
       ON CONFLICT (theuser) DO UPDATE SET operations = ' + actualQuantity + ', ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
     ' );
     await dbClient.release();
-    return true;
+    return actualQuantity;
   }
   await dbClient.release();
 
