@@ -55,7 +55,7 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts 
     console.log( userInit + ' has enough juice' );
    const score = await points.updateScore( item, operation, actualQuantity ),
         operationName = operations.getOperationName( operation );
-  const message = messages.getRandomMessage( operationName, item, score[0], score[1] );
+  let message = messages.getRandomMessage( operationName, item, score[0], score[1] );
   if (quantity > MAX_QUANTITY_PER_OP && actualQuantity == MAX_QUANTITY_PER_OP) {
     message += '. (Only gave ' + actualQuantity + ':taco:s because that\'s the :taco: limit per message)';
   } else if (actualQuantity < quantity) {
