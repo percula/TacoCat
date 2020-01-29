@@ -57,9 +57,9 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts 
         operationName = operations.getOperationName( operation );
   let message = messages.getRandomMessage( operationName, item, score[0], score[1] );
   if (quantity > MAX_QUANTITY_PER_OP && actualQuantity == MAX_QUANTITY_PER_OP) {
-    message += '. (Only gave ' + actualQuantity + ':taco:s because that\'s the :taco: limit per message)';
+    message += '. (Only gave ' + actualQuantity + ' :taco:s because that\'s the :taco: limit per message)';
   } else if (actualQuantity < quantity) {
-    message += '. (Only gave ' + actualQuantity + ':taco:s because you\'re now out of :taco:s)';
+    message += '. (Only gave ' + actualQuantity + ' :taco:s because you\'re now out of :taco:s)';
   }
     return slack.sendThreadMessage( message, channel, ts );
   } else {
