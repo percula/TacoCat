@@ -70,7 +70,7 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts 
     return slack.sendThreadMessage( message, channel, ts );
   } else {
     console.log( userInit + 'CANNOT UPDATE ' + item );
-    return slack.sendThreadMessage( 'Sorry <@' + userInit + '> but you exceded your :taco: limit, check back tomorrow', channel );
+    return slack.sendThreadMessage( 'Sorry <@' + userInit + '> but you exceded your :taco: limit, check back tomorrow', channel, ts );
   }
 };
 
