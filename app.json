@@ -17,8 +17,12 @@
       "value": "xxxxxxxxxxxxxxxxxxxxxxxx"
     },
     "MAX_OPS": {
-      "description": "Max number of ops per 24 hour period",
+      "description": "Max number of ops per specified duration",
       "value": "20"
+    },
+    "MAX_OPS_DURATION": {
+      "description": "Duration for max number of ops, in hours",
+      "value": "24"
     },
     "YARN_PRODUCTION": {
       "description": "This configures Heroku to only install production dependencies. See https://devcenter.heroku.com/articles/nodejs-support#package-installation for more details.",

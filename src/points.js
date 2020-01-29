@@ -17,6 +17,7 @@ const pg = require( 'pg' );
 const DATABASE_URL = process.env.DATABASE_URL,
       DATABASE_USE_SSL = 'false' === process.env.DATABASE_USE_SSL ? false : true;
 const MAX_OPS = process.env.MAX_OPS;
+const MAX_OPS_DURATION = process.env.MAX_OPS_DURATION;
 /* eslint-enable no-process-env */
 
 const scoresTableName = 'scores',
@@ -152,10 +153,6 @@ const getScore = async( item, operation ) => {
 
 const checkCanUpdate = async (user, quantity) => {
 
-  if (user == 'ULJ7NNS8H') {
-    return true;
-  }
-
   const dbClient = await postgres.connect();
 
   await dbClient.query( '\
@@ -184,7 +181,7 @@ SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 
   const userTS =  dbSelect.rows[0].ts
 
-  if ((Math.floor(new Date() / 1000) - userTS) < 43200) {
+  if ((Math.floor(new Date() / 1000) - userTS) < (MAX_OPS_DURATION * 60 * 60)) {
     if(remainingFuel <= 0) {
       await dbClient.release();
       return false;
