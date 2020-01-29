@@ -50,7 +50,7 @@ const handleSelfPlus = ( user, channel ) => {
 const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts ) => {
   console.log( userInit + ' triggered a operation on ' + item );
   const actualQuantity = await points.checkCanUpdate(userInit, quantity);
-  console.log( check);
+  console.log( actualQuantity);
   if (actualQuantity > 0) {
     console.log( userInit + ' has enough juice' );
    const score = await points.updateScore( item, operation, actualQuantity ),
