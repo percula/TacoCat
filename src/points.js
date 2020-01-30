@@ -179,9 +179,9 @@ SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
 
   const userOperations =  dbSelect.rows[0].operations;
   const remainingFuel = MAX_OPS - userOperations;
-  const actualQuantity = Math.min(remainingFuel, quantity, MAX_QUANTITY_PER_OP);
+  let actualQuantity = Math.min(remainingFuel, quantity, MAX_QUANTITY_PER_OP);
 
-  const userTS =  dbSelect.rows[0].ts
+  const userTS =  dbSelect.rows[0].ts;
 
   if ((Math.floor(new Date() / 1000) - userTS) < (MAX_OPS_DURATION * 60 * 60)) {
     if(remainingFuel <= 0) {
@@ -198,6 +198,7 @@ SELECT * FROM ' + userTrackerTableName + ' WHERE theuser = \'' + user + '\'; \
     }
   }
   else {
+    actualQuantity = Math.min(quantity, MAX_QUANTITY_PER_OP);
     const test = await dbClient.query( '\
       INSERT INTO ' + userTrackerTableName + ' VALUES (\'' + user + '\', ' + actualQuantity + ', ' + (Math.floor(new Date() / 1000) ) + '  ) \
       ON CONFLICT (theuser) DO UPDATE SET operations = ' + actualQuantity + ', ts = ' + (Math.floor(new Date() / 1000) ) + ' ; \
