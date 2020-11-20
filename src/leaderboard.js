@@ -268,26 +268,14 @@ const handler = async( event, request ) => {
  * @returns {*} See the documentation for getForSlack.
  */
 const allHandler = async( event, request ) => {
-var today = new Date();
-const crypto = require('crypto')
-, shasum = crypto.createHash('sha1');
-shasum.update(event.user + today.getHours() + today.getMinutes() + today.getFullYear() + today.getMonth() + today.getDate());
-
-  if (event.text.match('([a-f0-9]{40})')[0] == shasum.digest('hex')) {
-    return getForAllSlack( event, request );
-
-  }
-  else {
-    slack.sendEphemeral("Code Invalid, please check help", event.channel, event.user)
-
-  }
-
+  return getForAllSlack( event, request );
 };
 
 module.exports = {
   getLeaderboardUrl,
   rankItems,
   getForSlack,
+  getForAllSlack,
   getForWeb,
   handler,
   allHandler
