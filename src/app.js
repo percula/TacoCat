@@ -117,6 +117,24 @@ const handleGet = async( request, response ) => {
 const handlePost = ( request, response ) => {
   logRequest( request );
 
+  switch ( request.path.replace( /\/$/, '' ) ) {
+    // Full leaderboard. This will only work when a valid, non-expired token and timestamp are
+    // provided - the full link can be retrieved by requesting the leaderboard within Slack.
+    // TODO: This should probably be split out into a separate function of sorts, like handlePost.
+    case '/leaderboard':
+      if ( helpers.isTimeBasedTokenStillValid( request.query.token, request.query.ts ) ) {
+        response.send( await leaderboard.getForWeb( request ) );
+      } else {
+        response
+          .status( HTTP_403 )
+          .send( 'Sorry, this link is no longer valid. Please request a new link in Slack.' );
+      }
+      break;
+
+    default:
+      break;
+  }
+
   // Respond to challenge sent by Slack during event subscription set up.
   if ( request.body.challenge ) {
     response.send( request.body.challenge );
