@@ -36,7 +36,7 @@ messages[ operations.PLUS ] = [
       'Mmmmm...tacos.',
       'Delicious.',
       ':taconyancat:',
-      ':businesscat:'
+      ':businesscat:',
       ':smile_cat:',
       ':dance_pig:',
       ':dance-carrot:',
