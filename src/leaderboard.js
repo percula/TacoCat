@@ -93,7 +93,7 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
 
         // If this is the first item, it's the winner!
         if ( ! items.length ) {
-          output += ' ' + ( isUser ? ':nyancat:' : ':tada:' );
+          output += ' ' + ( isUser ? ':taconyancat:' : ':tada:' );
         }
 
         break;
