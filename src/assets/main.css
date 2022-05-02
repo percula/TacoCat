@@ -64,13 +64,19 @@ li {
 .score {
   margin-left: .25em;
   font-size: .95em;
-  color: #aaa;
+  color: #595959;
 }
 
 .tempscore {
   margin-left: .25em;
   font-size: .95em;
   color: #aaa;
+}
+
+.previousscore {
+  margin-left: .25em;
+  font-size: .95em;
+  color: #595959;
 }
 
 @media only screen and (min-width: 430px) {

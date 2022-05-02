@@ -75,14 +75,14 @@ const updateScore = async( item, operation, quantity ) => {
   const dbClient = await postgres.connect();
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
-    CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempscore INTEGER); \
+    CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempscore INTEGER, previousscore INTEGER); \
   ' );
 
   // Atomically record the action.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   await dbClient.query( '\
-    INSERT INTO ' + scoresTableName + ' VALUES (\'' + item + '\', ' + operation + quantity + ', ' + operation + quantity + ') \
-    ON CONFLICT (item) DO UPDATE SET score = ' + scoresTableName + '.score ' + operation + ' ' + quantity + ', tempscore = ' + scoresTableName + '.tempscore ' + operation + ' ' + quantity + '; \
+    INSERT INTO ' + scoresTableName + ' VALUES (\'' + item + '\', ' + operation + quantity + ', ' + operation + quantity + ', 0) \
+    ON CONFLICT (item) DO UPDATE SET score = ' + scoresTableName + '.score ' + operation + ' ' + quantity + ', tempscore = ' + scoresTableName + '.tempscore ' + operation + ' ' + quantity + ', previousscore = ' + scoresTableName + '.previousscore; \
   ' );
 
   // Get the new values.
@@ -94,10 +94,11 @@ const updateScore = async( item, operation, quantity ) => {
   await dbClient.release();
   const score = dbSelect.rows[0].score;
   const tempScore = dbSelect.rows[0].tempscore;
+  const previousScore = dbSelect.rows[0].previousscore;
 
-  console.log( item + ' now at ' + score + ' and temp at ' + tempScore );
+  console.log( item + ' now at ' + score + ' and temp at ' + tempScore + ' and previous at ' + previousScore);
 
-  const scores = [score, tempScore];
+  const scores = [score, tempScore, previousScore];
   return scores;
 }; // UpdateScore.
 
@@ -110,6 +111,7 @@ const resetTempScores = async( ) => {
   const dbClient = await postgres.connect();
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
+    UPDATE ' + scoresTableName + ' SET previousscore = ' + scoresTableName + '.tempscore ; \
     UPDATE ' + scoresTableName + ' SET tempscore = 0; \
   ' );
 
