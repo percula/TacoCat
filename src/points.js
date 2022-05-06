@@ -78,6 +78,15 @@ const updateScore = async( item, operation, quantity ) => {
     CREATE TABLE IF NOT EXISTS ' + scoresTableName + ' (item CITEXT PRIMARY KEY, score INTEGER, tempscore INTEGER, previousscore INTEGER); \
   ' );
 
+  try {
+    await dbClient.query( '\
+                    ALTER TABLE ' + scoresTableName + ' ADD previousscore INTEGER; \
+    ' );
+  }
+  catch(error) {
+    console.error(error);
+  }
+
   // Atomically record the action.
   // TODO: Fix potential SQL injection issues here, even though we know the input should be safe.
   await dbClient.query( '\
@@ -111,7 +120,7 @@ const resetTempScores = async( ) => {
   const dbClient = await postgres.connect();
   await dbClient.query( '\
     CREATE EXTENSION IF NOT EXISTS citext; \
-    UPDATE ' + scoresTableName + ' SET previousscore = ' + scoresTableName + '.tempscore ; \
+    UPDATE ' + scoresTableName + ' SET previousscore = ' + scoresTableName + '.tempscore; \
     UPDATE ' + scoresTableName + ' SET tempscore = 0; \
   ' );
 
@@ -149,9 +158,10 @@ const getScore = async( item, operation ) => {
   await dbClient.release();
   const score = dbSelect.rows[0].score;
   const tempScore = dbSelect.rows[0].tempscore;
+  const previousScore = dbSelect.rows[0].previousscore;
 
-  console.log( item + ' now at ' + score + ' and temp at ' + tempScore );
-  const scores = [score, tempScore];
+  console.log( item + ' now at ' + score + ' and temp at ' + tempScore + ' and previous at ' + previousScore);
+  const scores = [score, tempScore, previousScore];
   return scores;
 };
 
