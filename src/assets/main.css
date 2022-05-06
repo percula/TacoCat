@@ -95,7 +95,7 @@ li {
 
   .leaderboard {
     margin-bottom: 0;
-    width: 50%;
+    width: 100%;
     opacity: .8;
     transform: scale(.9);
   }
