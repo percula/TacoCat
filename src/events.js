@@ -67,24 +67,12 @@ const handlePlusMinus = async( item, operation, quantity, channel, userInit, ts 
   } else if (actualQuantity < quantity) {
     message += '. (Only gave ' + actualQuantity + ' :taco:s because you\'re now out of :taco:s)';
   }
+    slack.sendMessage( 'This is just a test', 'GN537QCTE', ts );
     return slack.sendThreadMessage( message, channel, ts );
   } else {
     console.log( userInit + 'CANNOT UPDATE ' + item );
     return slack.sendThreadMessage( 'Sorry <@' + userInit + '> but you exceded your :taco: limit, check back tomorrow', channel, ts );
   }
-};
-
-/**
- * Handles a taco against a user, and then notifies the channel of the new score.
- *
- * @param {object} channel   The ID of the channel (Cxxxxxxxx for public channels or Gxxxxxxxx for
- *                           private channels - aka groups) that the message was sent from.
- * @return {Promise} A Promise to send a Slack message back to the requesting channel after the
- *                   points have been updated.
- */
-const handleTaco = async(channel ) => {
-
-  return slack.sendMessage( ":taco:!", channel );
 };
 
 /**
@@ -120,36 +108,6 @@ const reset = async( event ) => {
 
   return slack.sendMessage( "TacoCat began another one of it\'s many lives.", event.channel );
 };
-
-
-
-/**
- * Sends a random thank you message to the requesting channel.
- *
- * @param {object} event   A hash of a validated Slack 'app_mention' event. See the docs at
- *                         https://api.slack.com/events-api#events_dispatched_as_json and
- *                         https://api.slack.com/events/app_mention for details.
- * @returns {Promise} A Promise to send the Slack message.
- */
-const sayThankyou = ( event ) => {
-
-  const thankyouMessages = [
-    'Don\'t mention it!',
-    'You\'re welcome.',
-    'Pleasure!',
-    'No thank YOU!',
-    (
-      '++ for taking the time to say thanks!\n...' +
-      'just kidding, I can\'t `++` you. But it\'s the thought that counts, right??'
-    )
-  ];
-
-  const randomKey = Math.floor( Math.random() * thankyouMessages.length ),
-        message = '<@' + event.user + '> ' + thankyouMessages[ randomKey ];
-
-  return slack.sendMessage( message, event.channel );
-
-}; // SayThankyou.
 
 /**
  * Sends a help message, explaining the bot's commands, to the requesting channel.
@@ -315,9 +273,6 @@ const handlers = {
       reincarnate:reset,
       helpall: sendAllHelp,
       help: sendHelp,
-      thx: sayThankyou,
-      thanks: sayThankyou,
-      thankyou: sayThankyou,
       '++': handlePlusMinus,
       // '--': handlePlusMinus,
       ':taco:': handlePlusMinus,
@@ -397,7 +352,6 @@ module.exports = {
   handleSelfPlus,
   handlePlusMinus,
   reset,
-  sayThankyou,
   sendHelp,
   sendAllHelp,
   handlers,
