@@ -88,7 +88,7 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
       case 'slack':
 
         output = (
-          rank + '. ' + itemTitleCase + ' ' + score.tempscore + ' :taco:' + tempPlural + ' (' + score.previousscore + 'last time, ' + score.score + ' total)'
+          rank + '. ' + itemTitleCase + ' ' + score.tempscore + ' :taco:' + tempPlural
         );
 
         // If this is the first item, it's the winner!
@@ -103,7 +103,8 @@ const rankItems = async( topScores, itemType = 'users', format = 'slack' ) => {
           rank,
           item: itemTitleCase,
           tempscore: score.tempscore + ' 🌮' + tempPlural,
-          score: '(' + score.score + ' total)'
+          previousscore: '(' + score.previousscore + ' last time, ',
+          score: '' + score.score + ' total)'
         };
         break;
     }
